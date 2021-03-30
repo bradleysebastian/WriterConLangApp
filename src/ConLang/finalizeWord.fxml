@@ -4,48 +4,45 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateSyllableController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.FinalizeWordController">
    <children>
-      <VBox layoutX="153.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox layoutX="75.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="CREATE SYLLABLE" underline="true">
+                  <Label text="FINALIZE WORD">
                      <font>
                         <Font name="System Bold" size="24.0" />
-                     </font></Label>
-                  <Button mnemonicParsing="false" text="MenuButton" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" text="MENU BUTTON" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField promptText="Example: mp, a, ae, str" />
+                  <TextField promptText="SPELLED" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField />
+                  <TextField promptText="PHONETIC" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox prefWidth="150.0" />
+                  <TextField prefHeight="25.0" prefWidth="164.0" promptText="DEFINITION OR MEANING" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox prefWidth="150.0" promptText="ASSIGN NOW" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Save" />
-                  <Button mnemonicParsing="false" text="Cancel" />
+                  <Button mnemonicParsing="false" text="SAVE" />
+                  <Button mnemonicParsing="false" text="CANCEL" />
                </children>
             </HBox>
          </children>
