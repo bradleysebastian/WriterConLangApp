@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.MainMenuController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -19,22 +19,22 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Create Word for Lexicon" />
+                  <Button fx:id="createWordBtn" mnemonicParsing="false" onAction="#openCreateWordMenu" text="Create Word for Lexicon" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Open Lexicon" />
+                  <Button fx:id="openLexBtn" mnemonicParsing="false" onAction="#openLexiconMenu" text="Open Lexicon" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Assign LexiconWords" />
+                  <Button fx:id="assignLexWordsBtn" mnemonicParsing="false" onAction="#assignLexWordsMenu" text="Assign LexiconWords" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Close App" />
+                  <Button fx:id="closeAppBtn" mnemonicParsing="false" onAction="#closeApp" text="Close App" />
                </children>
             </HBox>
          </children>

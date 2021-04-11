@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ConLang.ModifySubjectController" prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.ModifySubjectController">
     <children>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
             <children>
@@ -23,28 +20,32 @@
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
+                  <Label text="Subject Name: " />
                         <TextField />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
+                  <Label text="Subject Description: " />
                         <TextField />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <ComboBox prefWidth="150.0" />
+                  <Label text="Select Person, Place, or Thing" />
+                        <ComboBox fx:id="selectCombo" onAction="#selectPPTCombo" prefWidth="150.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
+                  <Label text="??????" />
                         <TextField />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button mnemonicParsing="false" text="SAVE" />
-                        <Button mnemonicParsing="false" text="CANCEL" />
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSubject" text="SAVE" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnAssignSubjectMenu" text="CANCEL" />
                     </children>
                 </HBox>
             </children>

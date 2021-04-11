@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignWordController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignWordController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -19,12 +19,13 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField />
+                  <Label text="Selected Word" />
+                  <TextField editable="false" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <TextField />
-                  <Button mnemonicParsing="false" text="Search" />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchPPTSubjects" text="Search Subjects" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -32,12 +33,12 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Assign" />
+                  <Button fx:id="assignBtn" mnemonicParsing="false" onAction="#assignWord" text="Assign Word to Subject" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Back" />
+                  <Button fx:id="backBtn" mnemonicParsing="false" onAction="#returnLexiConWords" text="Back to LexiConWords" />
                </children>
             </HBox>
          </children></VBox>

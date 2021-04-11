@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateWordController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateWordController">
    <children>
       <VBox layoutX="121.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -18,15 +18,11 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Add New Syllable" />
+                  <Button fx:id="addSyllBtn" mnemonicParsing="false" onAction="#addSyllMenu" text="Add New Syllable" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Generate Word" />
-               </children></HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <TextField editable="false" />
+                  <Button fx:id="getWordBtn" mnemonicParsing="false" onAction="#generateWord" text="Generate Word" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -34,8 +30,12 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Save" />
-                  <Button mnemonicParsing="false" text="Cancel" />
+                  <TextField editable="false" />
+               </children></HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveWord" text="Save" />
+                  <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnToMain" text="Cancel" />
                </children></HBox>
          </children>
       </VBox>

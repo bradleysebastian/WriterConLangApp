@@ -4,8 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -21,13 +20,13 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Create Person, Place, Thing" />
+                  <Button fx:id="createPPTBtn" mnemonicParsing="false" onAction="#createPPT" text="Create Person, Place, Thing" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <TextField />
-                  <Button mnemonicParsing="false" text="Search" />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchPPT" text="Search" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -37,14 +36,14 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Modify" />
-                  <Button mnemonicParsing="false" text="Assign" />
-                  <Button mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="modifyBtn" mnemonicParsing="false" onAction="#modifyPPT" text="Modify" />
+                  <Button fx:id="assignBTN" mnemonicParsing="false" onAction="#assignPPT" text="Assign" />
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deletePPT" text="Delete" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Back" />
+                  <Button fx:id="backBtn" mnemonicParsing="false" onAction="#returnMainMenu" text="Back" />
                </children>
             </HBox>
          </children>
