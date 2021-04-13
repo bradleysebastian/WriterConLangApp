@@ -24,14 +24,14 @@ public class CreateSyllableController implements Initializable {
     private Stage primaryStage;
     private Parent newScene;
     //SQL Constants
-    private static final String SYLLTBL = "conSyll";
-    private static final String ID = "_id";
-    private static final String SPELLED = "spelled";
-    private static final String PHONETIC = "phonetic";
-    private static final String POSITION = "position";
-    private static final String SYLLTYPE = "syllType";
-    private static final String MEANING = "meaning";
-    private static final String DATEADDED = "dateAdded";
+    static final String SYLLTBL = "conSyll";
+    static final String ID = "_id";
+    static final String SPELLED = "spelled";
+    static final String PHONETIC = "phonetic";
+    static final String POSITION = "position";
+    static final String SYLLTYPE = "syllType";
+    static final String MEANING = "meaning";
+    static final String DATEADDED = "dateAdded";
     //FORM Variables
     @FXML
     private TextField syllSpell;
@@ -44,38 +44,34 @@ public class CreateSyllableController implements Initializable {
     @FXML
     private ComboBox<String> syllType;
 
-    public void saveSyllable(ActionEvent saveSyllBtnP) throws SQLException {
+    public void saveSyllable(ActionEvent saveSyllBtnP) throws SQLException, IOException {
         //TODO save new syllable into ConLang DB
 //        PreparedStatement prepStmt = null;
         //DMLString
-        String dmlString = "INSERT INTO " + SYLLTBL + " ("
-                + SPELLED + ", "
-                + PHONETIC + ", "
-                + POSITION + ", "
-                + SYLLTYPE + ", "
-                + MEANING + ", "
-                + DATEADDED + ") " +
-                "VALUES(?, ?, ?, ?, ?, ?)";
+        String dmlString = "INSERT INTO " + SYLLTBL + " (" + SPELLED + ", " + PHONETIC + ", " + POSITION + ", "
+                + SYLLTYPE + ", " + MEANING + ", " + DATEADDED + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         //SPELLED TEXTFIELD
-        System.out.println(syllSpell.getText());
         prepStmt.setString(1, syllSpell.getText());
         //PHONETIC TEXTFIELD
-        System.out.println(syllPhone.getText());
         prepStmt.setString(2, syllPhone.getText());
-        //POSITION TEXTFIELD??? OR COMBO BOX???
-        System.out.println(position.getValue());
+        //POSITION COMBO BOX
         prepStmt.setString(3, position.getValue());
-        //SYLLTYPE TEXTFIELD??? OR COMBO BOX???
-        System.out.println(syllType.getValue());
+        //SYLLTYPE COMBO BOX
         prepStmt.setString(4, syllType.getValue());
         //MEANING TEXTFIELD
-        System.out.println(meaning.getText());
         prepStmt.setString(5, meaning.getText());
         //DATEADDED SYSTEM DATETIME
-        System.out.println(ZonedDateTime.now().toString());
-        prepStmt.setString(6, ZonedDateTime.now().toString());
-//        prepStmt.execute();
+        prepStmt.setString(6, ZonedDateTime.now().toLocalDateTime().toString());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+        //Return to Create Word after saving syllable
+        //Get current Stage
+        primaryStage = (Stage)((Button)saveSyllBtnP.getSource()).getScene().getWindow();
+        //Load Parent, FXMLLoader for createWord.fxml
+        newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/createWord.fxml"));
+        primaryStage.setScene(new Scene(newScene));
+        primaryStage.show();
     }
 
     public void returnCreateWordMenu(ActionEvent cnlBtnP) throws IOException {
@@ -89,7 +85,7 @@ public class CreateSyllableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        position.getItems().addAll("Any","First","First-Middle","Middle",
+        position.getItems().addAll("Any","First","First-Middle","Exact Middle",
                 "Last-Middle", "Last");
         syllType.getItems().addAll("Regular", "Prefix", "Suffix",
                 "Compound", "Separator");

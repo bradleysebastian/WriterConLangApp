@@ -8,6 +8,16 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    //SQL Constants
+    static final String SYLLTBL = "conSyll";
+    static final String ID = "_id";
+    static final String SPELLED = "spelled";
+    static final String PHONETIC = "phonetic";
+    static final String POSITION = "position";
+    static final String SYLLTYPE = "syllType";
+    static final String MEANING = "meaning";
+    static final String DATEADDED = "dateAdded";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Ensure DB and tables created...TODO threading

@@ -19,27 +19,32 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="Spelling/Letter Combination: " />
                   <TextField fx:id="syllSpell" promptText="Example: mp, a, ae, str" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="Phonetic/Pronunciation: " />
                   <TextField fx:id="syllPhone" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="Syllable Position: " />
                   <ComboBox fx:id="position" prefWidth="150.0" promptText="Syllable Position" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="Syllable Type: " />
                   <ComboBox fx:id="syllType" prefWidth="150.0" promptText="Syllable Type" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="meaning" />
+                  <Label text="Meaning: " />
+                  <TextField fx:id="meaning" text="N/A" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
