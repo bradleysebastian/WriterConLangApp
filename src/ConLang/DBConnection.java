@@ -16,6 +16,16 @@ public class DBConnection {
         }
     }
 
+    public static Connection dbConnector(){
+        try {
+            Connection dbConnect = DriverManager.getConnection("jdbc:sqlite:ConLang.db");
+            return dbConnect;
+        } catch (SQLException sqlE) {
+            System.out.println("SQL Problem " + sqlE.getMessage());
+            return null;
+        }
+    }
+
     public static void  createTables(){
         execSQL("CREATE TABLE IF NOT EXISTS conSyll " +
                 "(_id INTEGER, " +
