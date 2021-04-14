@@ -43,6 +43,8 @@ public class CreateSyllableController implements Initializable {
     private ComboBox<String> position;
     @FXML
     private ComboBox<String> syllType;
+    @FXML
+    private Button cnlBtn;
 
     public void saveSyllable(ActionEvent saveSyllBtnP) throws SQLException, IOException {
         //TODO save new syllable into ConLang DB
@@ -89,5 +91,9 @@ public class CreateSyllableController implements Initializable {
                 "Last-Middle", "Last");
         syllType.getItems().addAll("Regular", "Prefix", "Suffix",
                 "Compound", "Separator");
+    }
+
+    public void addMultiSyll(ActionEvent multiSyllChk) {
+//        cnlBtn.mouseTransparentProperty()
     }
 }

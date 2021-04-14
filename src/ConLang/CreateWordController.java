@@ -83,7 +83,6 @@ public class CreateWordController {
                 sqlResults = prepStmt.getResultSet();
                 while (sqlResults.next() ) {
                     genWord = genWord + sqlResults.getString(2);
-                    System.out.println("First syllable results are " + genWord);
                 }
             }
             else if (i == syllCount && i > 1){
@@ -105,17 +104,65 @@ public class CreateWordController {
             else if (i != 1 && i <= (syllCount / 2) ){
                 //TODO First-Middle, Middle, Any
                 System.out.println("First-Middle, Middle, Any");
+                dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'First-Middle' "
+                        + " OR " + Main.POSITION + " LIKE 'Middle'"
+                        + " OR " + Main.POSITION + " LIKE 'Any'"
+                        + " ORDER BY RANDOM() LIMIT 1)";
+                prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+                prepStmt.execute();
+                sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                }
             }
             else if ( (Math.abs(1 - i)) == (syllCount - i) ){
                 //TODO Middle
                 System.out.println("Exact Middle");
+                dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'Exact Middle' "
+//                        + " OR " + Main.POSITION + " LIKE 'Middle'"
+//                        + " OR " + Main.POSITION + " LIKE 'Any'"
+                        + " ORDER BY RANDOM() LIMIT 1)";
+                prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+                prepStmt.execute();
+                sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                }
             }
             else if (i != syllCount && i > (syllCount / 2)){
                 //TODO Last-Middle, Middle, Any
                 System.out.println("Last-Middle, Middle, Any");
+                dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'Last-Middle' "
+                        + " OR " + Main.POSITION + " LIKE 'Middle'"
+                        + " OR " + Main.POSITION + " LIKE 'Any'"
+                        + " ORDER BY RANDOM() LIMIT 1)";
+                prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+                prepStmt.execute();
+                sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                }
             } else {
                 //TODO Middle, Any
                 System.out.println("Middle, Any");
+                dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'Middle' "
+//                        + " OR " + Main.POSITION + " LIKE 'Middle'"
+                        + " OR " + Main.POSITION + " LIKE 'Any'"
+                        + " ORDER BY RANDOM() LIMIT 1)";
+                prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+                prepStmt.execute();
+                sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                }
             }
         }
         //Last syllable selected should be Any, Last, or Last-Middle
