@@ -61,7 +61,6 @@ public class CreateWordController {
             System.out.println(totalSyllables);
         }
         if (syllCount <= totalSyllables) {
-            System.out.println("Gravy Baby");
         } else {
             System.out.println("Too large of number foir syllables");
             //TODO Hard stop
@@ -74,21 +73,34 @@ public class CreateWordController {
                 System.out.println("First, First-Middle, Any");
                 //Query for random syllable by position
                 dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
-                        + Main.ID + " IN "
-                        + "(SELECT " + Main.ID + " FROM "
-                        + Main.SYLLTBL + " WHERE "
-                        + Main.POSITION + " LIKE 'First' "
-                        + " OR WHERE " + Main.POSITION + " LIKE 'First-Middle'"
-                        + " OR WHERE " + Main.POSITION + " LIKE 'Any'"
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'First' "
+                        + " OR " + Main.POSITION + " LIKE 'First-Middle'"
+                        + " OR " + Main.POSITION + " LIKE 'Any'"
                         + " ORDER BY RANDOM() LIMIT 1)";
-                dmlString = "SELECT * FROM conSyll";
                 prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
                 prepStmt.execute();
                 sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                    System.out.println("First syllable results are " + genWord);
+                }
             }
             else if (i == syllCount && i > 1){
                 //TODO Last, Last-Middle, Any
                 System.out.println("Last, Last-Middle, Any");
+                dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
+                        + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
+                        + " WHERE " + Main.POSITION + " LIKE 'Last' "
+                        + " OR " + Main.POSITION + " LIKE 'Last-Middle'"
+                        + " OR " + Main.POSITION + " LIKE 'Any'"
+                        + " ORDER BY RANDOM() LIMIT 1)";
+                prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+                prepStmt.execute();
+                sqlResults = prepStmt.getResultSet();
+                while (sqlResults.next() ) {
+                    genWord = genWord + sqlResults.getString(2);
+                }
             }
             else if (i != 1 && i <= (syllCount / 2) ){
                 //TODO First-Middle, Middle, Any
@@ -108,6 +120,7 @@ public class CreateWordController {
         }
         //Last syllable selected should be Any, Last, or Last-Middle
         //TODO shit, need a field for syllables
+        spelledGenWord.setText(genWord);
     }
 
     public void saveWord(ActionEvent saveWordBtnP) {
