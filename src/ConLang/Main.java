@@ -10,9 +10,11 @@ public class Main extends Application {
 
     //SQL Constants
     static final String SYLLTBL = "conSyll";
+    static final String WORDTBL = "conWord";
     static final String ID = "_id";
     static final String SPELLED = "spelled";
     static final String PHONETIC = "phonetic";
+    static final String WORDTYPE = "wordType";
     static final String POSITION = "position";
     static final String SYLLTYPE = "syllType";
     static final String MEANING = "meaning";
@@ -23,7 +25,7 @@ public class Main extends Application {
         //Ensure DB and tables created...TODO threading
         DBConnection.createTables();
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("LexiConLang");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
