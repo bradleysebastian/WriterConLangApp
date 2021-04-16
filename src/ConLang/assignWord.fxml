@@ -29,7 +29,7 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TableView prefHeight="67.0" prefWidth="314.0">
+                  <TableView fx:id="conWordTblVw" prefHeight="67.0" prefWidth="314.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />

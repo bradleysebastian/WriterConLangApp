@@ -45,10 +45,11 @@ public class FinalizeWordController implements Initializable {
     }
 
     public void saveLexiConWord(ActionEvent saveBtnP) throws SQLException, IOException {
-        //TODO Save LexiConWord to DB
+        //Set meaning to blank instead of null
         if (meaningGenWord.getText().isEmpty()) {
             meaningGenWord.setText("");
         }
+        //Check that word details are set/haven't been removed
         if(spelledGenWord.getText().isEmpty() || phoneticGenWord.getText().isEmpty() || assignCombo.getValue() == null){
             Alert finalWordAlert = new Alert(Alert.AlertType.WARNING);
             finalWordAlert.setTitle("No Word Saved");
@@ -88,8 +89,8 @@ public class FinalizeWordController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        spelledGenWord.setText(CreateWordController.genWord);
-        phoneticGenWord.setText(CreateWordController.genPhonetic);
+        spelledGenWord.setText(CreateWordController.newGenWord.getSpelling());
+        phoneticGenWord.setText(CreateWordController.newGenWord.getPhonetic());
         assignCombo.getItems().addAll("Noun", "Verb", "Adjective", "Pronoun", "Adverb");
     }
 }
