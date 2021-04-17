@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+import static ConLang.Main.*;
+import static ConLang.Main.DATEADDED;
+
 public class ConWord {
     //TODO fields
     private int id;
@@ -155,5 +158,32 @@ public class ConWord {
         }
     }
     //TODO SQL Storage
-
+    public void storeLexiConWord(ConWord newConWord) throws SQLException {
+        String dmlString = "INSERT INTO " + WORDTBL + " ("
+                + SPELLED + "," + PHONETIC + "," + WORDTYPE + "," + MEANING + "," + DATEADDED + ")" +
+                "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setString(1, newConWord.getSpelling());
+        prepStmt.setString(2, newConWord.getPhonetic());
+        prepStmt.setString(3, newConWord.getWordType());
+        prepStmt.setString(4, newConWord.getMeaning());
+        prepStmt.setString(5, newConWord.getDateAdded());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+    }
+    //TODO Modify Word Record in SQL
+    public void changeLexiConWord(ConWord modConWord) throws SQLException {
+        String dmlString = "UPDATE " + WORDTBL
+                + " SET " + SPELLED + " = ?, " + PHONETIC + " = ?, "
+                + WORDTYPE + " = ?, " + MEANING + " = ?"
+                + "WHERE " + ID + " = ?";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setString(1, modConWord.getSpelling());
+        prepStmt.setString(2, modConWord.getPhonetic());
+        prepStmt.setString(3, modConWord.getWordType());
+        prepStmt.setString(4, modConWord.getMeaning());
+        prepStmt.setInt(5, modConWord.getId());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+    }
 }

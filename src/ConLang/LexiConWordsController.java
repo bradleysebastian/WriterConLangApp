@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -24,6 +21,8 @@ public class LexiConWordsController implements Initializable {
     private Stage primaryStage;
     private Parent newScene;
 
+    private static ConWord selectedWord;
+
     @FXML
     private TextField searchTextF;
     @FXML
@@ -37,16 +36,58 @@ public class LexiConWordsController implements Initializable {
     @FXML
     private TableColumn<ConWord, String> meaningTblCol;
 
-    public void searchWords(ActionEvent actionEvent) {
+    public static ConWord getSelectedWord() {
+        return selectedWord;
     }
 
-    public void modifyWord(ActionEvent actionEvent) {
+    public void searchWords(ActionEvent actionEvent) throws SQLException {
+        ConWord.populateLexiConWords(searchTextF.getText());
     }
 
-    public void assignWord(ActionEvent actionEvent) {
+    public void modifyWord(ActionEvent modifyBtnP) throws IOException {
+        selectedWord = lexiConWordsTblVw.getSelectionModel().getSelectedItem();
+        if(selectedWord != null) {
+            //Get current Stage
+            primaryStage = (Stage)((Button)modifyBtnP.getSource()).getScene().getWindow();
+            //Load Parent, FXMLLoader for createWord.fxml
+            newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/modifyWord.fxml"));
+            primaryStage.setScene(new Scene(newScene));
+            primaryStage.show();
+        } else {
+            showAlert();
+        }
+
+    }
+
+    public void assignWord(ActionEvent assignBtnP) throws IOException {
+        selectedWord = lexiConWordsTblVw.getSelectionModel().getSelectedItem();
+        if(selectedWord != null) {
+            //Get current Stage
+            primaryStage = (Stage)((Button)assignBtnP.getSource()).getScene().getWindow();
+            //Load Parent, FXMLLoader for createWord.fxml
+            newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/assignWord.fxml"));
+            primaryStage.setScene(new Scene(newScene));
+            primaryStage.show();
+        } else {
+            showAlert();
+        }
+    }
+
+    public void showAlert(){
+        Alert modAlert = new Alert(Alert.AlertType.WARNING);
+        modAlert.setTitle("No word selected");
+        modAlert.setContentText("Please select a word and try again.  If there are no words showing, reset search terms" +
+                " or add words in the other menu");
+        modAlert.show();
     }
 
     public void deleteWord(ActionEvent actionEvent) {
+        selectedWord = lexiConWordsTblVw.getSelectionModel().getSelectedItem();
+        if(selectedWord != null) {
+
+        } else {
+            showAlert();
+        }
     }
 
     public void returnMainMenu(ActionEvent backBtnP) throws IOException {

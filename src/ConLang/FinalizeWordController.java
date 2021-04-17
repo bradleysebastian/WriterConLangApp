@@ -44,7 +44,7 @@ public class FinalizeWordController implements Initializable {
         //TODO REMOVE
     }
 
-    public void saveLexiConWord(ActionEvent saveBtnP) throws SQLException, IOException {
+    public void saveNewConWord(ActionEvent saveBtnP) throws IOException, SQLException {
         //Set meaning to blank instead of null
         if (meaningGenWord.getText().isEmpty()) {
             meaningGenWord.setText("");
@@ -56,19 +56,8 @@ public class FinalizeWordController implements Initializable {
             finalWordAlert.setContentText("Please make sure Spelled, Phonetic and Type are populated");
             finalWordAlert.show();
         } else {
-            System.out.println("Add Word");
-            //DML statement:
-            String dmlString = "INSERT INTO " + WORDTBL + " ("
-            + SPELLED + "," + PHONETIC + "," + WORDTYPE + "," + MEANING + "," + DATEADDED + ")" +
-            "VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-            prepStmt.setString(1, spelledGenWord.getText());
-            prepStmt.setString(2, phoneticGenWord.getText());
-            prepStmt.setString(3, assignCombo.getValue());
-            prepStmt.setString(4, meaningGenWord.getText());
-            prepStmt.setString(5, ZonedDateTime.now().toLocalDateTime().toString());
-            prepStmt.execute();
-            DBConnection.dbConnector().close();
+            ConWord finalConWord = new ConWord(1, spelledGenWord.getText(), phoneticGenWord.getText(), assignCombo.getValue(), meaningGenWord.getText(), ZonedDateTime.now().toString());
+            finalConWord.storeLexiConWord(finalConWord);
             //Get current Stage
             primaryStage = (Stage)((Button)saveBtnP.getSource()).getScene().getWindow();
             //Load Parent, FXMLLoader for createWord.fxml
@@ -89,8 +78,9 @@ public class FinalizeWordController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        spelledGenWord.setText(CreateWordController.newGenWord.getSpelling());
-        phoneticGenWord.setText(CreateWordController.newGenWord.getPhonetic());
+        ConWord newConWord = CreateWordController.getNewGenWord();
+        spelledGenWord.setText(newConWord.getSpelling());
+        phoneticGenWord.setText(newConWord.getPhonetic());
         assignCombo.getItems().addAll("Noun", "Verb", "Adjective", "Pronoun", "Adverb");
     }
 }

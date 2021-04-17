@@ -15,7 +15,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="MENU BUTTON" />
+                  <Button mnemonicParsing="false" onAction="#saveNewConWord" text="MENU BUTTON" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -40,7 +40,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveLexiConWord" text="SAVE" />
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveNewConWord" text="SAVE" />
                   <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnGenWordMenu" text="CANCEL" />
                </children>
             </HBox>

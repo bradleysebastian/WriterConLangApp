@@ -30,6 +30,10 @@ public class CreateWordController {
 
     public static ConWord newGenWord;
 
+    public static ConWord getNewGenWord() {
+        return newGenWord;
+    }
+
     public void addSyllMenu(ActionEvent addSyllBtnP) throws IOException {
         //Get current Stage
         primaryStage = (Stage) ((Button) addSyllBtnP.getSource()).getScene().getWindow();

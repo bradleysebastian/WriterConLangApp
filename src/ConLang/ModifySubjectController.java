@@ -2,14 +2,17 @@ package ConLang;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ModifySubjectController {
+public class ModifySubjectController implements Initializable {
     //LEGEND: xxxBtnP : Button Pressed
 
     private Stage primaryStage;
@@ -30,5 +33,11 @@ public class ModifySubjectController {
         newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/assignSubject.fxml"));
         primaryStage.setScene(new Scene(newScene));
         primaryStage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+
     }
 }
