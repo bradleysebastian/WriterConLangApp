@@ -18,6 +18,7 @@ public class ConWord {
     private String dateAdded;
 
     private ObservableList<Syllable> syllList;
+    private static ObservableList<ConWord> lexiConWords = FXCollections.observableArrayList();
     //TODO Constructor
 
     public ConWord(int id, String spelling, String phonetic, String wordType, String meaning, String dateAdded) {
@@ -27,7 +28,7 @@ public class ConWord {
         this.wordType = wordType;
         this.meaning = meaning;
         this.dateAdded = dateAdded;
-        this.syllList =  FXCollections.observableArrayList();
+        this.syllList = FXCollections.observableArrayList();
     }
 
     public ConWord() {
@@ -65,6 +66,11 @@ public class ConWord {
     public ObservableList<Syllable> getSyllList() {
         return syllList;
     }
+
+    public static ObservableList<ConWord> getLexiConWords() {
+        return lexiConWords;
+    }
+
     //TODO Setter
 
     public void setId(int id) {
@@ -79,12 +85,20 @@ public class ConWord {
         this.spelling = syllSpellChain;
     }
 
+    public void setSpelling(String spelled){
+        this.spelling = spelled;
+    }
+
     public void setPhonetic(ObservableList<Syllable> syllList) {
         String syllPhoneChain = "";
         for(int i = 0; i < syllList.size(); i++){
             syllPhoneChain = syllPhoneChain + syllList.get(i).getPhonetic();
         }
         this.phonetic = syllPhoneChain;
+    }
+
+    public void setPhonetic(String phone){
+        this.phonetic = phone;
     }
 
     public void setWordType(String wordType) {
@@ -102,7 +116,6 @@ public class ConWord {
     //TODO SQL Retrieval
     //Returns 1 Syllable
     public void getSyllable(String syllType1, String syllType2, String syllType3) throws SQLException {
-//        Syllable newSyll = new Syllable();
         String dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
                 + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
                 + " WHERE " + Main.POSITION + " LIKE 'First' "
@@ -118,6 +131,27 @@ public class ConWord {
                     sqlResults.getString(5),sqlResults.getString(6),
                     sqlResults.getString(7));
             syllList.add(newSyll);
+        }
+    }
+    //TODO Move this method???
+    //Populate List of All (or specified search) Words
+    public static void populateLexiConWords(String searchText) throws SQLException {
+        lexiConWords.clear();
+        String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE '%" +
+                searchText + "%'";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.execute();
+        ResultSet sqlResults = prepStmt.getResultSet();
+        while (sqlResults.next()) {
+            ConWord addWord = new ConWord();
+            addWord.setId(sqlResults.getInt(1));
+            addWord.setSpelling(sqlResults.getString(2));
+            addWord.setPhonetic(sqlResults.getString(3));
+            addWord.setWordType(sqlResults.getString(4));
+            addWord.setMeaning(sqlResults.getString(5));
+            addWord.setDateAdded(sqlResults.getString(6));
+            //Observable List in class declarations above
+            lexiConWords.add(addWord);
         }
     }
     //TODO SQL Storage
