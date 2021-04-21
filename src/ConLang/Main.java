@@ -11,6 +11,7 @@ public class Main extends Application {
     //SQL Constants
     static final String SYLLTBL = "conSyll";
     static final String WORDTBL = "conWord";
+    static final String PPTTBL = "conPPT";
     static final String ID = "_id";
     static final String SPELLED = "spelled";
     static final String PHONETIC = "phonetic";
@@ -19,6 +20,8 @@ public class Main extends Application {
     static final String SYLLTYPE = "syllType";
     static final String MEANING = "meaning";
     static final String DATEADDED = "dateAdded";
+    static final String DESC = "description";
+    static final String ARCH = "archeType";
 
     @Override
     public void start(Stage primaryStage) throws Exception{

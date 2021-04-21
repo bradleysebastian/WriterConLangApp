@@ -8,10 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AssignWordController implements Initializable {
@@ -19,6 +21,9 @@ public class AssignWordController implements Initializable {
 
     private Stage primaryStage;
     private Parent newScene;
+
+    @FXML
+    private TextField selConWordTxtF;
 
     @FXML
     private TableView<String> conWordTblVw;
@@ -43,6 +48,11 @@ public class AssignWordController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        selConWordTxtF.setText(LexiConWordsController.getSelectedWord().getSpelling());
+        try {
+            PPTSubject.populatePPTSubjects("");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

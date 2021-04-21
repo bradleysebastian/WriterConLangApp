@@ -21,25 +21,25 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Subject Name: " />
-                  <TextField />
+                  <TextField editable="false" promptText="LexiConWord TBD" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Subject Description: " />
-                  <TextField />
+                  <TextField fx:id="pptDescTxtF" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Person, Place, or Thing" />
-                  <ComboBox fx:id="pptCombo" onAction="#selectPPT" prefWidth="150.0" />
+                  <ComboBox fx:id="pptCombo" onAction="#selectPPT" prefWidth="150.0" promptText="Designation" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="??????" />
-                  <TextField />
+                  <TextField fx:id="tbdTextF" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

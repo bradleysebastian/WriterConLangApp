@@ -140,9 +140,11 @@ public class ConWord {
     //Populate List of All (or specified search) Words
     public static void populateLexiConWords(String searchText) throws SQLException {
         lexiConWords.clear();
-        String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE '%" +
-                searchText + "%'";
+//        String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE '%" +
+//                searchText + "%'";
+        String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setString(1, "%" + searchText + "%");
         prepStmt.execute();
         ResultSet sqlResults = prepStmt.getResultSet();
         while (sqlResults.next()) {
@@ -183,6 +185,14 @@ public class ConWord {
         prepStmt.setString(3, modConWord.getWordType());
         prepStmt.setString(4, modConWord.getMeaning());
         prepStmt.setInt(5, modConWord.getId());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+    }
+
+    public void deleteLexiConWord(ConWord delConWord) throws SQLException {
+        String dmlString = "DELETE FROM " + WORDTBL + " WHERE " + ID + " = ?";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setInt(1, delConWord.getId());
         prepStmt.execute();
         DBConnection.dbConnector().close();
     }

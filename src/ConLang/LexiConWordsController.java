@@ -40,7 +40,7 @@ public class LexiConWordsController implements Initializable {
         return selectedWord;
     }
 
-    public void searchWords(ActionEvent actionEvent) throws SQLException {
+    public void searchWords() throws SQLException {
         ConWord.populateLexiConWords(searchTextF.getText());
     }
 
@@ -81,10 +81,11 @@ public class LexiConWordsController implements Initializable {
         modAlert.show();
     }
 
-    public void deleteWord(ActionEvent actionEvent) {
+    public void deleteWord(ActionEvent actionEvent) throws SQLException {
         selectedWord = lexiConWordsTblVw.getSelectionModel().getSelectedItem();
         if(selectedWord != null) {
-
+            selectedWord.deleteLexiConWord(selectedWord);
+            searchWords();
         } else {
             showAlert();
         }
