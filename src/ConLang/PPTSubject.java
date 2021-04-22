@@ -1,5 +1,6 @@
 package ConLang;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,6 +12,7 @@ public class PPTSubject {
 
     private int pptSubjectID;
     private int wordID;
+    private String pptName;
     private String archeType;
     private String description;
     private String dateAdded;
@@ -18,9 +20,10 @@ public class PPTSubject {
     private ObservableList<ConWord> lexiConWords;
     private static ObservableList<PPTSubject> pptSubjects = FXCollections.observableArrayList();
 
-    public PPTSubject(int pptSubjectID, int wordID, String archeType, String description, String dateAdded) {
+    public PPTSubject(int pptSubjectID, int wordID, String pptName, String archeType, String description, String dateAdded) {
         this.pptSubjectID = pptSubjectID;
         this.wordID = wordID;
+        this.pptName = pptName;
         this.archeType = archeType;
         this.description = description;
         this.dateAdded = dateAdded;
@@ -69,6 +72,14 @@ public class PPTSubject {
         this.dateAdded = dateAdded;
     }
 
+    public String getPptName() {
+        return pptName;
+    }
+
+    public void setPptName(String pptName) {
+        this.pptName = pptName;
+    }
+
     public ObservableList<ConWord> getLexiConWords() {
         return lexiConWords;
     }
@@ -88,16 +99,28 @@ public class PPTSubject {
         DBConnection.dbConnector().close();
     }
     public static void populatePPTSubjects(String searchTxt) throws SQLException {
-        String dmlString = "SELECT * FROM " + Main.PPTTBL + " WHERE " + Main.DESC + " LIKE ?";
+        //TODO Change query and results to get conPPT's Foreign Key ID#
+        String dmlString = "SELECT ?, ?, ?, ?, ? FROM ? AS S LEFT JOIN ? AS W ON ? = ? WHERE ? LIKE ?";
+//        String dmlString = "SELECT * FROM " + Main.PPTTBL + " WHERE " + Main.DESC + " LIKE ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, "%" + searchTxt + "%");
+        prepStmt.setString(1, "S." + Main.ID);
+        prepStmt.setString(2, "W." + Main.SPELLED);
+        prepStmt.setString(3, "S." + Main.ARCH);
+        prepStmt.setString(4, "S." + Main.DESC);
+        prepStmt.setString(5, "S." + Main.DATEADDED);
+        prepStmt.setString(6, Main.PPTTBL);
+        prepStmt.setString(7, Main.WORDTBL);
+        prepStmt.setString(8, "S." + Main.ID);
+        prepStmt.setString(9, "W." + Main.ID);
+        prepStmt.setString(10, "S." + Main.DESC);
+        prepStmt.setString(11, "%" + searchTxt + "%");
         prepStmt.execute();
         ResultSet quResults = prepStmt.getResultSet();
         while (quResults.next()){
             //Build PPTSubject object
             PPTSubject newSubject = new PPTSubject();
             newSubject.setPptSubjectID(quResults.getInt(1));
-            newSubject.setWordID(quResults.getInt(2));
+            newSubject.setPptName(quResults.getString(2));
             newSubject.setArcheType(quResults.getString(3));
             newSubject.setDescription(quResults.getString(4));
             newSubject.setDateAdded(quResults.getString(5));
