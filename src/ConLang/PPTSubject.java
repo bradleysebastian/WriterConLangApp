@@ -138,15 +138,20 @@ public class PPTSubject {
     }
 
     public static void deletePPTSubject(PPTSubject delSubject) throws SQLException {
-        //TODO
-        String dmlString = "DELETE FROM conPPT WHERE _id = ?";
+        String dmlString = "DELETE FROM " + Main.PPTTBL + " WHERE " + Main.ID + " = ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.setInt(1, delSubject.getPptSubjectID());
         prepStmt.execute();
         DBConnection.dbConnector().close();
     }
 
-    public static void modifyPPTSubject(PPTSubject modSubject){
+    public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
         //TODO
+        String dmlString = "UPDATE " + Main.PPTTBL + " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ?";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setString(1, modSubject.getArcheType());
+        prepStmt.setString(2, modSubject.getDescription());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
     }
 }

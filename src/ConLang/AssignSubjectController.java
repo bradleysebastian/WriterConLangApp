@@ -51,19 +51,31 @@ public class AssignSubjectController implements Initializable {
         PPTSubject.populatePPTSubjects(searchTxtF.getText());
     }
 
-    public void modifyPPT(ActionEvent modifyBtnP) {
+    public void modifyPPT(ActionEvent modifyBtnP) throws IOException {
         //TODO modify PPT Subject
+        selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
-
+            //Get current Stage
+            primaryStage = (Stage)((Button)modifyBtnP.getSource()).getScene().getWindow();
+            //Load Parent, FXMLLoader for createWord.fxml
+            newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/modifySubject.fxml"));
+            primaryStage.setScene(new Scene(newScene));
+            primaryStage.show();
         } else {
             showAlert();
         }
     }
 
-    public void assignPPT(ActionEvent assignBtnP) {
+    public void assignPPT(ActionEvent assignBtnP) throws IOException {
         //TODO assign ConWord to PPT Subject
+        selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
-
+            //Get current Stage
+            primaryStage = (Stage)((Button)assignBtnP.getSource()).getScene().getWindow();
+            //Load Parent, FXMLLoader for createWord.fxml
+            newScene = FXMLLoader.load(getClass().getClassLoader().getResource("ConLang/assignSubjectActual.fxml"));
+            primaryStage.setScene(new Scene(newScene));
+            primaryStage.show();
         } else {
             showAlert();
         }
@@ -71,6 +83,7 @@ public class AssignSubjectController implements Initializable {
 
     public void deletePPT(ActionEvent deleteBtnP) throws SQLException {
         //TODO delete PPT Subject
+        selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
             PPTSubject.deletePPTSubject(selectedPPTSubject);
             searchPPT();

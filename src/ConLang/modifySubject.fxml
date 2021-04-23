@@ -21,7 +21,7 @@
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                   <Label text="Subject Name: " />
-                        <TextField />
+                        <TextField editable="false" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
