@@ -88,6 +88,14 @@ public class PPTSubject {
         this.lexiConWords = lexiConWords;
     }
 
+    public static ObservableList<PPTSubject> getPptSubjects() {
+        return pptSubjects;
+    }
+
+    public static void setPptSubjects(ObservableList<PPTSubject> pptSubjects) {
+        PPTSubject.pptSubjects = pptSubjects;
+    }
+
     public void storePPTSubject(PPTSubject newSubject) throws SQLException {
         String dmlString = "INSERT INTO " + Main.PPTTBL + " (" + Main.ARCH + ", " + Main.DESC + ", " + Main.DATEADDED + ")" +
                 "VALUES (?, ?, ?)";
@@ -99,33 +107,46 @@ public class PPTSubject {
         DBConnection.dbConnector().close();
     }
     public static void populatePPTSubjects(String searchTxt) throws SQLException {
-        //TODO Change query and results to get conPPT's Foreign Key ID#
-        String dmlString = "SELECT ?, ?, ?, ?, ? FROM ? AS S LEFT JOIN ? AS W ON ? = ? WHERE ? LIKE ?";
-//        String dmlString = "SELECT * FROM " + Main.PPTTBL + " WHERE " + Main.DESC + " LIKE ?";
+        pptSubjects.clear();
+        String dmlString = "SELECT " + Main.PREFIXPPT+Main.ID +
+                ", " + Main.PREFIXWORD+Main.SPELLED +
+                ", " + Main.PREFIXPPT+Main.ARCH +
+                ", " + Main.PREFIXPPT+Main.DESC +
+                ", " + Main.PREFIXPPT+Main.DATEADDED +
+                " FROM " + Main.PPTTBL + " LEFT JOIN " + Main.WORDTBL +
+                " ON " + Main.PREFIXPPT+Main.WID + " = " + Main.PREFIXWORD+Main.ID +
+                " WHERE " + Main.PREFIXPPT+Main.DESC + " LIKE ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, "S." + Main.ID);
-        prepStmt.setString(2, "W." + Main.SPELLED);
-        prepStmt.setString(3, "S." + Main.ARCH);
-        prepStmt.setString(4, "S." + Main.DESC);
-        prepStmt.setString(5, "S." + Main.DATEADDED);
-        prepStmt.setString(6, Main.PPTTBL);
-        prepStmt.setString(7, Main.WORDTBL);
-        prepStmt.setString(8, "S." + Main.ID);
-        prepStmt.setString(9, "W." + Main.ID);
-        prepStmt.setString(10, "S." + Main.DESC);
-        prepStmt.setString(11, "%" + searchTxt + "%");
+        prepStmt.setString(1, "%" + searchTxt + "%");
         prepStmt.execute();
         ResultSet quResults = prepStmt.getResultSet();
         while (quResults.next()){
-            //Build PPTSubject object
             PPTSubject newSubject = new PPTSubject();
             newSubject.setPptSubjectID(quResults.getInt(1));
-            newSubject.setPptName(quResults.getString(2));
+            if (quResults.getString(2) == null){
+                newSubject.setPptName("Not Assigned");
+            } else {
+                newSubject.setPptName(quResults.getString(2));
+            }
             newSubject.setArcheType(quResults.getString(3));
             newSubject.setDescription(quResults.getString(4));
             newSubject.setDateAdded(quResults.getString(5));
             pptSubjects.add(newSubject);
+            System.out.println("Name is '"+newSubject.getPptName()+"'");
         }
         DBConnection.dbConnector().close();
+    }
+
+    public static void deletePPTSubject(PPTSubject delSubject) throws SQLException {
+        //TODO
+        String dmlString = "DELETE FROM conPPT WHERE _id = ?";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setInt(1, delSubject.getPptSubjectID());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+    }
+
+    public static void modifyPPTSubject(PPTSubject modSubject){
+        //TODO
     }
 }

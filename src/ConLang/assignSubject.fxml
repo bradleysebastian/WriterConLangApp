@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -25,13 +25,19 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField />
+                  <TextField fx:id="searchTxtF" />
                   <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchPPT" text="Search" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="191.0" prefWidth="600.0">
                <children>
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <TableView fx:id="pptSubjectTblVw" prefHeight="77.0" prefWidth="350.0">
+                    <columns>
+                      <TableColumn fx:id="pptNameTblCol" prefWidth="114.0" text="NAME" />
+                      <TableColumn fx:id="archeTypeTblCol" prefWidth="106.0" text="ARCHETYPE" />
+                        <TableColumn fx:id="descTblCol" prefWidth="128.0" text="DESCRIPTION" />
+                    </columns>
+                  </TableView>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

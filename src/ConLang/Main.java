@@ -10,9 +10,13 @@ public class Main extends Application {
 
     //SQL Constants
     static final String SYLLTBL = "conSyll";
+    static final String PREFIX = "conSyll.";
     static final String WORDTBL = "conWord";
+    static final String PREFIXWORD = "conWord.";
     static final String PPTTBL = "conPPT";
+    static final String PREFIXPPT = "conPPT.";
     static final String ID = "_id";
+    static final String WID = "wordId";
     static final String SPELLED = "spelled";
     static final String PHONETIC = "phonetic";
     static final String WORDTYPE = "wordType";
