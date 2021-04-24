@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.ModifySubjectController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.ModifySubjectController">
     <children>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
             <children>
@@ -21,13 +21,13 @@
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                   <Label text="Subject Name: " />
-                        <TextField editable="false" />
+                        <TextField fx:id="nameTxtF" editable="false" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                   <Label text="Subject Description: " />
-                        <TextField />
+                        <TextField fx:id="descTxtF" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
@@ -36,12 +36,7 @@
                         <ComboBox fx:id="selectCombo" onAction="#selectPPTCombo" prefWidth="150.0" />
                     </children>
                 </HBox>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                  <Label text="??????" />
-                        <TextField />
-                    </children>
-                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" />
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSubject" text="SAVE" />

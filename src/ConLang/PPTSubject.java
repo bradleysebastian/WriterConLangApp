@@ -132,7 +132,6 @@ public class PPTSubject {
             newSubject.setDescription(quResults.getString(4));
             newSubject.setDateAdded(quResults.getString(5));
             pptSubjects.add(newSubject);
-            System.out.println("Name is '"+newSubject.getPptName()+"'");
         }
         DBConnection.dbConnector().close();
     }
@@ -146,11 +145,13 @@ public class PPTSubject {
     }
 
     public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
-        //TODO
-        String dmlString = "UPDATE " + Main.PPTTBL + " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ?";
+        String dmlString = "UPDATE " + Main.PPTTBL +
+                " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
+                "WHERE " + Main.ID + " = ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.setString(1, modSubject.getArcheType());
         prepStmt.setString(2, modSubject.getDescription());
+        prepStmt.setInt(3, modSubject.getPptSubjectID());
         prepStmt.execute();
         DBConnection.dbConnector().close();
     }

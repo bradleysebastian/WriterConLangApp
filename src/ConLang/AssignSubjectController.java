@@ -20,7 +20,7 @@ public class AssignSubjectController implements Initializable {
 
     private Stage primaryStage;
     private Parent newScene;
-    private PPTSubject selectedPPTSubject;
+    private static PPTSubject selectedPPTSubject;
 
     @FXML
     private TextField searchTxtF;
@@ -34,7 +34,7 @@ public class AssignSubjectController implements Initializable {
     @FXML
     private TableColumn<PPTSubject, String> descTblCol;
 
-    public PPTSubject getSelectedPPTSubject() {
+    public static PPTSubject getSelectedPPTSubject() {
         return selectedPPTSubject;
     }
 
