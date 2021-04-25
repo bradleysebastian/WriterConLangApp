@@ -24,17 +24,16 @@
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField />
+                  <TextField fx:id="searchTxtF" />
                   <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchPPTSubjects" text="Search Subjects" />
                </children></HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="284.0" prefWidth="600.0">
                <children>
-                  <TableView fx:id="conWordTblVw" prefHeight="67.0" prefWidth="314.0">
+                  <TableView fx:id="pptSubjectTableView" prefHeight="220.0" prefWidth="574.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                      <TableColumn fx:id="pptNameTblCol" prefWidth="183.0" text="NAME" />
+                      <TableColumn fx:id="pptArchTblCol" prefWidth="96.0" text="ARCHETYPE" />
+                        <TableColumn fx:id="pptDescTblCol" prefWidth="269.0" text="DESCRIPTION" />
                     </columns>
                   </TableView>
                </children></HBox>
