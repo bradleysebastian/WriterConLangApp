@@ -1,5 +1,9 @@
 package ConLang;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.ZonedDateTime;
+
 public class Syllable {
 
     private int id;
@@ -80,5 +84,23 @@ public class Syllable {
         this.dateAdded = dateAdded;
     }
 
-
+    public void createSyllable(Syllable inputSyll) throws SQLException {
+        String dmlString = "INSERT INTO " + Main.SYLLTBL + " (" + Main.SPELLED + ", " + Main.PHONETIC + ", " + Main.POSITION + ", "
+                + Main.SYLLTYPE + ", " + Main.MEANING + ", " + Main.DATEADDED + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        //SPELLED TEXTFIELD
+        prepStmt.setString(1, inputSyll.getSpelling());
+        //PHONETIC TEXTFIELD
+        prepStmt.setString(2, inputSyll.getPhonetic());
+        //POSITION COMBO BOX
+        prepStmt.setString(3, inputSyll.getPosition());
+        //SYLLTYPE COMBO BOX
+        prepStmt.setString(4, inputSyll.getSyllType());
+        //MEANING TEXTFIELD
+        prepStmt.setString(5, inputSyll.getMeaning());
+        //DATEADDED SYSTEM DATETIME
+        prepStmt.setString(6, inputSyll.getDateAdded());
+        prepStmt.execute();
+        DBConnection.dbConnector().close();
+    }
 }

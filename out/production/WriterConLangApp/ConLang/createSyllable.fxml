@@ -51,7 +51,7 @@
                <children>
                   <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSyllable" text="Save" />
                   <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnCreateWordMenu" text="Cancel" />
-                  <CheckBox fx:id="addMultiSyll" mnemonicParsing="false" onAction="#addMultiSyll" prefHeight="26.0" prefWidth="315.0" text="CHECK TO ADD MULTIPLE WITHOUT EXITING" />
+                  <CheckBox fx:id="addMultiSyll" mnemonicParsing="false" prefHeight="26.0" prefWidth="315.0" text="CHECK TO ADD MULTIPLE WITHOUT EXITING" />
                </children>
             </HBox>
          </children>
