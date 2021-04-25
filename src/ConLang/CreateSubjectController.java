@@ -63,5 +63,6 @@ public class CreateSubjectController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pptCombo.getItems().addAll("Person", "Place", "Thing");
+        pptCombo.getSelectionModel().selectFirst();
     }
 }

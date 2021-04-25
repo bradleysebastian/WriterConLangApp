@@ -144,14 +144,27 @@ public class PPTSubject {
         DBConnection.dbConnector().close();
     }
 
+//    public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
+//        String dmlString = "UPDATE " + Main.PPTTBL +
+//                " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
+//                "WHERE " + Main.ID + " = ?";
+//        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+//        prepStmt.setString(1, modSubject.getArcheType());
+//        prepStmt.setString(2, modSubject.getDescription());
+//        prepStmt.setInt(3, modSubject.getPptSubjectID());
+//        prepStmt.execute();
+//        DBConnection.dbConnector().close();
+//    }
+
     public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
         String dmlString = "UPDATE " + Main.PPTTBL +
-                " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
+                " SET wordId = ?, " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
                 "WHERE " + Main.ID + " = ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, modSubject.getArcheType());
-        prepStmt.setString(2, modSubject.getDescription());
-        prepStmt.setInt(3, modSubject.getPptSubjectID());
+        prepStmt.setInt(1, modSubject.getWordID());
+        prepStmt.setString(2, modSubject.getArcheType());
+        prepStmt.setString(3, modSubject.getDescription());
+        prepStmt.setInt(4, modSubject.getPptSubjectID());
         prepStmt.execute();
         DBConnection.dbConnector().close();
     }

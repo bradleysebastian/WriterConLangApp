@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectActualController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.AssignSubjectActualController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -20,10 +20,10 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Selected Subject Description" />
-                  <TextField fx:id="pptDescTxtF" editable="false" />
-                  <Label text="Subject's Archetype" />
-                  <TextField fx:id="pptArchTxtF" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="120.0" text="Subject Archetype" textAlignment="JUSTIFY" />
+                  <TextField fx:id="pptArchTxtF" prefHeight="26.0" prefWidth="82.0" />
+                  <Label prefHeight="26.0" prefWidth="75.0" text="Description" />
+                  <TextField fx:id="pptDescTxtF" editable="false" prefHeight="26.0" prefWidth="309.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -32,14 +32,14 @@
                   <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchLexiConWords" text="Search LexiConWords" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="269.0" prefWidth="600.0">
                <children>
-                  <TableView fx:id="conWordTblVw" prefHeight="67.0" prefWidth="316.0">
+                  <TableView fx:id="conWordTblVw" prefHeight="208.0" prefWidth="587.0">
                     <columns>
-                      <TableColumn fx:id="spellTblCol" prefWidth="75.0" text="Spelled" />
-                      <TableColumn fx:id="phoneTblCol" prefWidth="75.0" text="Phonetic" />
-                        <TableColumn fx:id="typeTblCol" prefWidth="75.0" text="WordType" />
-                        <TableColumn fx:id="defTblCol" prefWidth="75.0" text="Meaning" />
+                      <TableColumn fx:id="spellTblCol" prefWidth="112.0" text="Spelled" />
+                      <TableColumn fx:id="phoneTblCol" prefWidth="87.0" text="Phonetic" />
+                        <TableColumn fx:id="typeTblCol" prefWidth="97.0" text="WordType" />
+                        <TableColumn fx:id="defTblCol" prefWidth="271.0" text="Meaning" />
                     </columns>
                   </TableView>
                </children>

@@ -39,12 +39,22 @@ public class AssignSubjectActualController implements Initializable {
     @FXML
     private TableColumn<ConWord, String> defTblCol;
 
-    public void searchLexiConWords(ActionEvent searchBtnP) {
+    public void searchLexiConWords(ActionEvent searchBtnP) throws SQLException {
         //TODO search LexiConWords
+        ConWord.populateLexiConWords(searchTxtF.getText());
     }
 
-    public void assignLexiConWord(ActionEvent assignBtnP) {
+    public void assignLexiConWord(ActionEvent assignBtnP) throws SQLException, IOException {
         //TODO Assign LexiConWord to PPT Subject
+        if (conWordTblVw.getSelectionModel().getSelectedItem() != null){
+            selectedPPTSubject.setWordID(conWordTblVw.getSelectionModel().getSelectedItem().getId());
+            PPTSubject.modifyPPTSubject(selectedPPTSubject);
+            returnAssignFirst(assignBtnP);
+        }
+        else {
+            showAlert();
+        }
+
     }
 
     public void returnAssignFirst(ActionEvent returnBtnP) throws IOException {
@@ -56,9 +66,19 @@ public class AssignSubjectActualController implements Initializable {
         primaryStage.show();
     }
 
+    public void showAlert(){
+        Alert modAlert = new Alert(Alert.AlertType.WARNING);
+        modAlert.setTitle("No LexiConWord selected");
+        modAlert.setContentText("Please select a LexiConWord and try again.  If there are no LexiConWords showing, reset search terms" +
+                " or add LexiConWords in the other menu");
+        modAlert.show();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectedPPTSubject = AssignSubjectController.getSelectedPPTSubject();
+        pptDescTxtF.setText(selectedPPTSubject.getDescription());
+        pptArchTxtF.setText(selectedPPTSubject.getArcheType());
         try {
             ConWord.populateLexiConWords("");
             conWordTblVw.setItems(ConWord.getLexiConWords());

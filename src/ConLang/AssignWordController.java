@@ -6,9 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,20 +20,38 @@ public class AssignWordController implements Initializable {
 
     private Stage primaryStage;
     private Parent newScene;
+    private ConWord selectedWord;
 
     @FXML
     private TextField selConWordTxtF;
+    @FXML
+    private TextField searchTxtF;
+
 
     @FXML
-    private TableView<String> conWordTblVw;
+    private TableView<PPTSubject> pptSubjectTableView;
+    @FXML
+    private TableColumn<PPTSubject, String> pptNameTblCol;
+    @FXML
+    private TableColumn<PPTSubject, String> pptArchTblCol;
+    @FXML
+    private TableColumn<PPTSubject, String> pptDescTblCol;
 
-    public void searchPPTSubjects(ActionEvent searchBtnP) {
+    public void searchPPTSubjects(ActionEvent searchBtnP) throws SQLException {
         //TODO search PPT Subjects
-        //TODO Show ListView
+        PPTSubject.populatePPTSubjects(searchTxtF.getText());
     }
 
-    public void assignWord(ActionEvent assignBtnP) {
+    public void assignWord(ActionEvent assignBtnP) throws IOException, SQLException {
         //TODO Assign Word to PPT Subject
+        PPTSubject modSubject = pptSubjectTableView.getSelectionModel().getSelectedItem();
+        if (modSubject != null) {
+            modSubject.setWordID(selectedWord.getId());
+            PPTSubject.modifyPPTSubject(modSubject);
+            returnLexiConWords(assignBtnP);
+        } else {
+            showAlert();
+        }
     }
 
     public void returnLexiConWords(ActionEvent returnBtnP) throws IOException {
@@ -46,11 +63,28 @@ public class AssignWordController implements Initializable {
         primaryStage.show();
     }
 
+    public void showAlert(){
+        Alert modAlert = new Alert(Alert.AlertType.WARNING);
+        modAlert.setTitle("No Subject selected");
+        modAlert.setContentText("Please select a Subject and try again.  If there are no Subjects showing, reset search terms" +
+                " or add Subjects in the other menu");
+        modAlert.show();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        selConWordTxtF.setText(LexiConWordsController.getSelectedWord().getSpelling());
+        selectedWord = LexiConWordsController.getSelectedWord();
+        selConWordTxtF.setText(selectedWord.getSpelling());
         try {
             PPTSubject.populatePPTSubjects("");
+            pptSubjectTableView.setItems(PPTSubject.getPptSubjects());
+            pptNameTblCol.setCellValueFactory(new PropertyValueFactory<>("pptName"));
+            pptArchTblCol.setCellValueFactory(new PropertyValueFactory<>("archeType"));
+            pptDescTblCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+//            private String pptName;
+//            private String archeType;
+//            private String description;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
