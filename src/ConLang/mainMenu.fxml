@@ -4,37 +4,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.MainMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.MainMenuController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Label prefHeight="50.0" prefWidth="169.0" text="MAIN MENU">
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="LEXICONWORDS - MAIN MENU">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" text="Menu Button" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="createWordBtn" mnemonicParsing="false" onAction="#openCreateWordMenu" text="Create Word for Lexicon" />
+                  <Button fx:id="createWordBtn" mnemonicParsing="false" onAction="#openCreateWordMenu" prefHeight="25.0" prefWidth="300.0" text="CREATE BRAND NEW WORD" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="openLexBtn" mnemonicParsing="false" onAction="#openLexiconMenu" text="Browse LexiConWords" />
+                  <Button fx:id="openLexBtn" mnemonicParsing="false" onAction="#openLexiconMenu" prefHeight="25.0" prefWidth="300.0" text="BROWSE CURRENT LEXICONWORDS" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="assignLexWordsBtn" mnemonicParsing="false" onAction="#assignLexWordsMenu" text="Assign LexiconWords" />
+                  <Button fx:id="assignLexWordsBtn" mnemonicParsing="false" onAction="#assignLexWordsMenu" prefHeight="25.0" prefWidth="300.0" text="CREATE SUBJECTS AND ASSIGN LEXICONWORDS" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="closeAppBtn" mnemonicParsing="false" onAction="#closeApp" text="Close App" />
+                  <Button fx:id="closeAppBtn" mnemonicParsing="false" onAction="#closeApp" text="CLOSE APP" />
                </children>
             </HBox>
          </children>

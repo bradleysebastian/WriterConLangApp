@@ -6,40 +6,39 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateWordController">
    <children>
-      <VBox layoutX="121.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="CREATE WORD">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="600.0" text="CREATE WORD">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Label>
-                  <Button fx:id="menuBtn" mnemonicParsing="false" onAction="#constructWord" text="Menu Button" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addSyllBtn" mnemonicParsing="false" onAction="#addSyllMenu" text="Add New Syllable" />
+                  <Button fx:id="addSyllBtn" mnemonicParsing="false" onAction="#addSyllMenu" prefHeight="25.0" prefWidth="260.0" text="ADD NEW SYLLABLE" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="138.0" text="Enter Number of Syllables" />
-                  <TextField fx:id="numSyll" prefHeight="25.0" prefWidth="34.0" />
-                  <Button fx:id="getWordBtn" mnemonicParsing="false" onAction="#constructWord" text="Generate Word" />
+                  <Label prefHeight="25.0" prefWidth="260.0" text="ENTER NUMBER OF SYLLABLES FOR NEW WORD" />
+                  <TextField fx:id="numSyll" prefHeight="25.0" prefWidth="25.0" />
+                  <Button fx:id="getWordBtn" mnemonicParsing="false" onAction="#constructWord" prefHeight="25.0" prefWidth="150.0" text="GENERATE WORD" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Spelled: " />
-                  <TextField fx:id="spelledGenWord" editable="false" />
+                  <Label prefHeight="25.0" prefWidth="60.0" text="SPELLING" />
+                  <TextField fx:id="spelledGenWord" editable="false" prefHeight="25.0" prefWidth="200.0" />
                </children></HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Phonetic: " />
-                  <TextField fx:id="phoneticGenWord" editable="false" />
+                  <Label prefHeight="25.0" prefWidth="60.0" text="PHONETIC" />
+                  <TextField fx:id="phoneticGenWord" editable="false" prefHeight="25.0" prefWidth="200.0" />
                </children></HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveWord" text="Save" />
-                  <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnToMain" text="Cancel" />
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveWord" prefHeight="25.0" prefWidth="50.0" text="SAVE" />
+                  <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnToMain" prefHeight="25.0" prefWidth="125.0" text="CANCEL &amp; RETURN" />
                </children></HBox>
          </children>
       </VBox>

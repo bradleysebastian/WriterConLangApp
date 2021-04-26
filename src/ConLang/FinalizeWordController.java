@@ -82,5 +82,6 @@ public class FinalizeWordController implements Initializable {
         spelledGenWord.setText(newConWord.getSpelling());
         phoneticGenWord.setText(newConWord.getPhonetic());
         assignCombo.getItems().addAll("Noun", "Verb", "Adjective", "Pronoun", "Adverb");
+        assignCombo.getSelectionModel().selectFirst();
     }
 }

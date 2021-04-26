@@ -4,44 +4,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.FinalizeWordController">
+<AnchorPane prefHeight="427.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.FinalizeWordController">
    <children>
-      <VBox layoutX="75.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="FINALIZE WORD">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="600.0" text="FINALIZE WORD">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#saveNewConWord" text="MENU BUTTON" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="spelledGenWord" promptText="SPELLED" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="SPELLING" />
+                  <TextField fx:id="spelledGenWord" prefHeight="25.0" prefWidth="200.0" promptText="SPELLED" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="phoneticGenWord" promptText="PHONETIC" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="PHONETIC" />
+                  <TextField fx:id="phoneticGenWord" prefHeight="25.0" prefWidth="200.0" promptText="PHONETIC" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="meaningGenWord" prefHeight="25.0" prefWidth="164.0" promptText="DEFINITION OR MEANING" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="DEFINITION" />
+                  <TextField fx:id="meaningGenWord" prefHeight="25.0" prefWidth="200.0" promptText="DEFINITION OR MEANING" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox fx:id="assignCombo" onAction="#assignWordType" prefWidth="150.0" promptText="ASSIGN NOW" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="100.0" text="TYPE OF WORD" />
+                  <ComboBox fx:id="assignCombo" onAction="#assignWordType" prefHeight="25.0" prefWidth="200.0" promptText="ASSIGN NOW" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveNewConWord" text="SAVE" />
-                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnGenWordMenu" text="CANCEL" />
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveNewConWord" prefHeight="25.0" text="SAVE" />
+                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnGenWordMenu" prefHeight="25.0" text="CANCEL &amp; RETURN" />
                </children>
             </HBox>
          </children>

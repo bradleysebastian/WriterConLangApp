@@ -4,54 +4,52 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateSyllableController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateSyllableController">
    <children>
-      <VBox layoutX="153.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="CREATE SYLLABLE" underline="true">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="758.0" text="CREATE SYLLABLE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" text="MenuButton" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Spelling/Letter Combination: " />
-                  <TextField fx:id="syllSpell" promptText="Example: mp, a, ae, str" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="SPELLING / LETTER COMBINATION" />
+                  <TextField fx:id="syllSpell" prefHeight="25.0" prefWidth="200.0" promptText="Example: mp, a, ae, str" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Phonetic/Pronunciation: " />
-                  <TextField fx:id="syllPhone" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="PHONETIC / PRONUNCIATION" />
+                  <TextField fx:id="syllPhone" prefHeight="25.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Syllable Position: " />
-                  <ComboBox fx:id="position" prefWidth="150.0" promptText="Syllable Position" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="SYLLABLE POSITION" />
+                  <ComboBox fx:id="position" prefHeight="25.0" prefWidth="200.0" promptText="Syllable Position" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Syllable Type: " />
-                  <ComboBox fx:id="syllType" prefWidth="150.0" promptText="Syllable Type" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="SYLLABLE TYPE" />
+                  <ComboBox fx:id="syllType" prefHeight="25.0" prefWidth="200.0" promptText="Syllable Type" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Meaning: " />
-                  <TextField fx:id="meaning" text="N/A" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="MEANING" />
+                  <TextField fx:id="meaning" prefHeight="25.0" prefWidth="200.0" text="N/A" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSyllable" text="Save" />
-                  <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnCreateWordMenu" text="Cancel" />
-                  <CheckBox fx:id="addMultiSyll" mnemonicParsing="false" prefHeight="26.0" prefWidth="315.0" text="CHECK TO ADD MULTIPLE WITHOUT EXITING" />
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSyllable" text="SAVE" />
+                  <Button fx:id="cnlBtn" mnemonicParsing="false" onAction="#returnCreateWordMenu" text="CANCEL &amp; RETURN" />
                </children>
             </HBox>
          </children>

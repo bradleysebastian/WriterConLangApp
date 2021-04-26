@@ -10,34 +10,33 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="MODIFY SUBJECT">
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="600.0" text="MODIFY SUBJECT">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="MENU BUTTON" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                  <Label text="Subject Name: " />
-                        <TextField fx:id="nameTxtF" editable="false" />
+                  <Label prefHeight="25.0" prefWidth="150.0" text="SUBJECT NAME" />
+                        <TextField fx:id="nameTxtF" editable="false" prefHeight="25.0" prefWidth="200.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                  <Label text="Subject Description: " />
-                        <TextField fx:id="descTxtF" />
+                  <Label prefHeight="25.0" prefWidth="150.0" text="SUBJECT DESCRIPTION" />
+                        <TextField fx:id="descTxtF" prefHeight="25.0" prefWidth="200.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                  <Label text="Select Person, Place, or Thing" />
-                        <ComboBox fx:id="selectCombo" onAction="#selectPPTCombo" prefWidth="150.0" />
+                  <Label prefHeight="25.0" prefWidth="150.0" text="TYPE OF SUBJECT" />
+                        <ComboBox fx:id="selectCombo" onAction="#selectPPTCombo" prefHeight="25.0" prefWidth="200.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" />
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSubject" text="SAVE" />
                         <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnAssignSubjectMenu" text="CANCEL" />

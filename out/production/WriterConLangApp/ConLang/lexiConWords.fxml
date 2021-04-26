@@ -10,42 +10,41 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="LexiConWords">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="600.0" text="LEXICONWORDS">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="MenuButton" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <TextField fx:id="searchTextF" />
-                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchWords" text="Search" />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchWords" text="SEARCH" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="lexiConWordsTblVw" prefHeight="80.0" prefWidth="302.0">
+                  <TableView fx:id="lexiConWordsTblVw" prefHeight="80.0" prefWidth="600.0">
                     <columns>
-                      <TableColumn fx:id="spelledTblCol" prefWidth="75.0" text="Spelled" />
-                      <TableColumn fx:id="phoneticTblCol" prefWidth="75.0" text="Phonetic" />
-                        <TableColumn fx:id="wordTypeTblCol" prefWidth="75.0" text="WordType" />
-                        <TableColumn fx:id="meaningTblCol" prefWidth="75.0" text="Meaning" />
+                      <TableColumn fx:id="spelledTblCol" prefWidth="208.0" text="SPELLING" />
+                      <TableColumn fx:id="phoneticTblCol" prefWidth="172.0" text="PHONETIC" />
+                        <TableColumn fx:id="wordTypeTblCol" prefWidth="78.0" text="WORDTYPE" />
+                        <TableColumn fx:id="meaningTblCol" prefWidth="124.0" text="MEANING" />
                     </columns>
                   </TableView>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="modifyBtn" mnemonicParsing="false" onAction="#modifyWord" text="Modify" />
-                  <Button fx:id="assignBtn" mnemonicParsing="false" onAction="#assignWord" text="Assign" />
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteWord" text="Delete" />
+                  <Button fx:id="modifyBtn" mnemonicParsing="false" onAction="#modifyWord" text="MODIFY" />
+                  <Button fx:id="assignBtn" mnemonicParsing="false" onAction="#assignWord" text="ASSIGN" />
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteWord" text="DELETE" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#returnMainMenu" text="Back to Main Menu" />
+                  <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#returnMainMenu" text="CANCEL &amp; RETURN" />
                </children>
             </HBox>
          </children>

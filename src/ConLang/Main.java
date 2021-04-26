@@ -33,7 +33,7 @@ public class Main extends Application {
         DBConnection.createTables();
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         primaryStage.setTitle("LexiConLang");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

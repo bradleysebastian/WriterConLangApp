@@ -4,48 +4,42 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateSubjectController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConLang.CreateSubjectController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="CREATE SUBJECT">
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="601.0" text="CREATE NEW SUBJECT">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="MENU BUTTON" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Subject Name: " />
-                  <TextField editable="false" promptText="LexiConWord TBD" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="SUBJECT NAME" />
+                  <TextField editable="false" opacity="0.5" prefHeight="25.0" prefWidth="150.0" promptText="LexiConWord TBD" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Subject Description: " />
-                  <TextField fx:id="pptDescTxtF" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="SUBJECT DESCRIPTION" />
+                  <TextField fx:id="pptDescTxtF" prefHeight="25.0" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Person, Place, or Thing" />
-                  <ComboBox fx:id="pptCombo" onAction="#selectPPT" prefWidth="150.0" promptText="Designation" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="150.0" text="TYPE OF SUBJECT" />
+                  <ComboBox fx:id="pptCombo" onAction="#selectPPT" prefHeight="25.0" prefWidth="150.0" promptText="Designation" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="??????" />
-                  <TextField fx:id="tbdTextF" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#savePPT" text="SAVE" />
-                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#returnAssignSubjectMenu" text="CANCEL" />
+                  <Button fx:id="cancelBtn" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#returnAssignSubjectMenu" text="CANCEL &amp; RETURN" />
                </children>
             </HBox>
          </children>
