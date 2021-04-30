@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class MainMenuController {
     //LEGEND: BtnP : Button Pressed
@@ -46,5 +48,24 @@ public class MainMenuController {
 
     public void closeApp(ActionEvent closeAppBtnP) {
         System.exit(0);
+    }
+
+    public void onActionAddEnglish() throws SQLException {
+        //TODO
+        Main.addTestData();
+
+    }
+
+    public void onActionRemoveAllData() throws SQLException {
+        //TODO
+        String dmlString = "DELETE FROM " + Main.SYLLTBL;
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.execute();
+        dmlString = "DELETE FROM " + Main.WORDTBL;
+        prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.execute();
+        dmlString = "DELETE FROM " + Main.PPTTBL;
+        prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.execute();
     }
 }

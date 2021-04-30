@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
 import static ConLang.Main.*;
-import static ConLang.Main.DATEADDED;
 
 public class ConWord {
     //TODO fields
@@ -115,24 +114,38 @@ public class ConWord {
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
     }
-
-    //TODO SQL Retrieval
     //Returns 1 Syllable
-    public void getSyllable(String syllType1, String syllType2, String syllType3) throws SQLException {
-        String dmlString = "SELECT * FROM " + Main.SYLLTBL + " WHERE "
-                + Main.ID + " IN " + "(SELECT " + Main.ID + " FROM " + Main.SYLLTBL
-                + " WHERE " + Main.POSITION + " LIKE 'First' "
-                + " OR " + Main.POSITION + " LIKE 'First-Middle'"
-                + " OR " + Main.POSITION + " LIKE 'Any'"
+    public void getSyllable(String syllType1, String syllType2, String syllType3,
+                            String followSyll, String selfSyll) throws SQLException {
+        //TODO - Work out two new WHERE clauses:
+        //TODO - WHERE spelling NOT LIKE [currentSyllable] or ""
+        //TODO - WHERE followSyll LIKE [Vowel, Consonant, or wildcard]
+        //TODO - WHERE (followSyll LIKE 'Consonant' AND spelled NOT LIKE '');
+        String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
+                + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
+                + " WHERE (" + FSYLL + " LIKE ? AND " + SPELLED + " NOT LIKE ?)"
+                + " AND (" + POSITION + " LIKE ? OR " + POSITION + " LIKE ? OR " + POSITION + " LIKE ?)"
                 + " ORDER BY RANDOM() LIMIT 1)";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setString(1, followSyll);
+        prepStmt.setString(2, selfSyll);
+        prepStmt.setString(3, syllType1);
+        prepStmt.setString(4, syllType2);
+        prepStmt.setString(5, syllType3);
         prepStmt.execute();
         ResultSet sqlResults = prepStmt.getResultSet();
         while (sqlResults.next() ) {
-            Syllable newSyll = new Syllable(sqlResults.getInt(1), sqlResults.getString(2),
-                    sqlResults.getString(3), sqlResults.getString(4),
-                    sqlResults.getString(5),sqlResults.getString(6),
-                    sqlResults.getString(7));
+//            boolean
+            Syllable newSyll = new Syllable(
+                    sqlResults.getInt(1), //ID#
+                    sqlResults.getString(2), //spelled
+                    sqlResults.getString(3), //phonetic
+                    sqlResults.getString(4), //position
+                    sqlResults.getString(5), //syllType
+                    sqlResults.getString(6), //meaning
+                    sqlResults.getString(10)); //dateAdded (SQL table re-ordered)
+            //TODO Set 3 new fields for each syllable
+            //TODO If followSyll Any, then sVowelFlag wildcard - If followSyll
             syllList.add(newSyll);
         }
     }

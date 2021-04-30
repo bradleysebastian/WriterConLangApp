@@ -70,6 +70,9 @@ public class CreateWordController {
     }
 
     public void constructWord(ActionEvent menuBtnP) throws SQLException {
+        String currSyll = "";
+        String followSyll = "";
+        boolean selfFlag = false;
         //# of Syllables from form (ENSURE INT ENTERED!!!)
         int syllCount = 0;
         try {
@@ -85,18 +88,27 @@ public class CreateWordController {
         //Syllables counted - logic looped thru for each syllable, added to ConWord's Syllable List
         for (int i = 1; i <= syllCount; i++) {
             if (i == 1) {//First, First-Middle, Any
-                newGenWord.getSyllable("First", "First-Middle", "Any");
+                newGenWord.getSyllable("First", "First-Middle", "Any", followSyll, currSyll); //TODO Add currSyll as argument to getSyllable
             } else if (i == syllCount && i > 1) {//Last, Last-Middle, Any
-                newGenWord.getSyllable("Last", "Last-Middle", "Any");
+                newGenWord.getSyllable("Last", "Last-Middle", "Any", followSyll, currSyll);
             } else if (i != 1 && i <= (syllCount / 2)) {//First-Middle, Middle, Any
-                newGenWord.getSyllable("Middle", "First-Middle", "Any");
+                newGenWord.getSyllable("Middle", "First-Middle", "Any", followSyll, currSyll);
             } else if ((Math.abs(1 - i)) == (syllCount - i)) {//Exact Middle
-                newGenWord.getSyllable("", "Exact-Middle", "");
+                newGenWord.getSyllable("", "Exact-Middle", "", followSyll, currSyll);
             } else if (i != syllCount && i > (syllCount / 2)) {//Last-Middle, Middle, Any
-                newGenWord.getSyllable("Middle", "Last-Middle", "Any");
+                newGenWord.getSyllable("Middle", "Last-Middle", "Any", followSyll, currSyll);
             } else {//Middle, Any
-                newGenWord.getSyllable("", "Middle", "Any");
+                newGenWord.getSyllable("", "Middle", "Any", followSyll, currSyll);
             }
+            //TODO - Set currentSyllable
+            currSyll = "";
+            if (newGenWord.getSyllList().get(i - 1).isSelfFlag() == true) {
+                currSyll = newGenWord.getSyllList().get(i - 1).getSpelling();
+            }
+            //TODO - Check selfFlag
+            //TODO - If selfFlag: False, feeds currentSyllable into method (populates WHERE spelling NOT LIKE "")
+            //TODO - Set followSyll value
+            //TODO - followSyll value feeds [something] into method (populates WHERE followSyll LIKE "")
         }
         //ConWord set from its Syllable list - getters display to form
         newGenWord.setSpelling(newGenWord.getSyllList());

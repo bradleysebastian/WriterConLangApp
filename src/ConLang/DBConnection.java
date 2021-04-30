@@ -6,7 +6,7 @@ public class DBConnection {
 
     public static void execSQL(String sqlCode){
         try {
-            Connection dbConnect = DriverManager.getConnection("jdbc:sqlite:ConLang.db");
+            Connection dbConnect = DriverManager.getConnection(Main.DBINFO);
             Statement varStatement = dbConnect.createStatement();
             varStatement.execute(sqlCode);
             varStatement.close();
@@ -18,7 +18,7 @@ public class DBConnection {
 
     public static Connection dbConnector(){
         try {
-            Connection dbConnect = DriverManager.getConnection("jdbc:sqlite:ConLang.db");
+            Connection dbConnect = DriverManager.getConnection(Main.DBINFO);
             return dbConnect;
         } catch (SQLException sqlE) {
             System.out.println("SQL Problem " + sqlE.getMessage());
@@ -28,14 +28,17 @@ public class DBConnection {
 
     public static void  createTables(){
         execSQL("CREATE TABLE IF NOT EXISTS conSyll " +
-                "(_id INTEGER, " +
-                "spelled TEXT NOT NULL, " +
-                "phonetic TEXT NOT NULL, " +
-                "position TEXT NOT NULL, " +
-                "syllType TEXT NOT NULL, " +
-                "meaning TEXT, " +
-                "dateAdded TEXT NOT NULL, " +
-                "PRIMARY KEY(_id AUTOINCREMENT))");
+                "(" + Main.ID + " INTEGER, " +
+                Main.SPELLED + " TEXT NOT NULL, " +
+                Main.PHONETIC + " TEXT NOT NULL, " +
+                Main.POSITION + " TEXT NOT NULL, " +
+                Main.SYLLTYPE + " TEXT NOT NULL, " +
+                Main.MEANING + " TEXT, " +
+                Main.SVOW + " TEXT NOT NULL, " +
+                Main.SELF + " TEXT NOT NULL, " +
+                Main.FSYLL + " TEXT NOT NULL, " +
+                Main.DATEADDED + " TEXT NOT NULL, " +
+                "PRIMARY KEY(" + Main.ID + " AUTOINCREMENT))");
         execSQL("CREATE TABLE IF NOT EXISTS conWord " +
                 "(_id INTEGER, " +
                 "spelled TEXT NOT NULL, " +

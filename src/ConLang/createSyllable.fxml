@@ -46,6 +46,18 @@
                   <TextField fx:id="meaning" prefHeight="25.0" prefWidth="200.0" text="N/A" />
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="200.0" text="VOWEL OR CONSONANT FOLLOWS?" />
+                  <ComboBox fx:id="fSyll" prefHeight="25.0" prefWidth="200.0" promptText="Vowel or Cons Follows" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="CAN THIS SYLLABLE FOLLOW ITSELF / DOUBLE?     " />
+                  <CheckBox fx:id="selfFlagChkBx" alignment="CENTER" mnemonicParsing="false" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSyllable" text="SAVE" />

@@ -31,6 +31,12 @@
                   <Button fx:id="assignLexWordsBtn" mnemonicParsing="false" onAction="#assignLexWordsMenu" prefHeight="25.0" prefWidth="300.0" text="CREATE SUBJECTS AND ASSIGN LEXICONWORDS" />
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addEngDataBtn" mnemonicParsing="false" onAction="#onActionAddEnglish" text="Add English Test Data" />
+                  <Button fx:id="deleteDataBtn" mnemonicParsing="false" onAction="#onActionRemoveAllData" text="Remove Test Data" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="600.0">
                <children>
                   <Button fx:id="closeAppBtn" mnemonicParsing="false" onAction="#closeApp" text="CLOSE APP" />

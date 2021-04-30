@@ -13,7 +13,13 @@ public class Syllable {
     private String syllType;
     private String meaning;
     private String dateAdded;
+    private boolean sVowelFlag;
+    private boolean selfFlag;
+    private FollowSyll followSyll;
 
+    enum FollowSyll {Any, Vowel, Consonant}
+
+    //TODO Remove old constructor
     public Syllable(int id, String spelling, String phonetic, String position,
                     String syllType, String meaning, String dateAdded) {
         this.id = id;
@@ -23,6 +29,20 @@ public class Syllable {
         this.syllType = syllType;
         this.meaning = meaning;
         this.dateAdded = dateAdded;
+    }
+
+    public Syllable(int id, String spelling, String phonetic, String position, String syllType, String meaning,
+                    String dateAdded, boolean sVowelFlag, boolean selfFlag, FollowSyll followSyll) {
+        this.id = id;
+        this.spelling = spelling;
+        this.phonetic = phonetic;
+        this.position = position;
+        this.syllType = syllType;
+        this.meaning = meaning;
+        this.dateAdded = dateAdded;
+        this.sVowelFlag = sVowelFlag;
+        this.selfFlag = selfFlag;
+        this.followSyll = followSyll;
     }
 
     public Syllable() {
@@ -84,22 +104,56 @@ public class Syllable {
         this.dateAdded = dateAdded;
     }
 
+    public boolean issVowelFlag() {
+        return sVowelFlag;
+    }
+
+    public void setsVowelFlag(int sVowelFlag) {
+        if (sVowelFlag == 1) {
+            this.sVowelFlag = true;
+        } else {
+            this.sVowelFlag = false;
+        }
+    }
+
+    public boolean isSelfFlag() {
+        return selfFlag;
+    }
+
+    public void setSelfFlag(boolean selfFlag) {
+        this.selfFlag = selfFlag;
+    }
+
+    public FollowSyll getFollowSyll() {
+        return followSyll;
+    }
+
+    public void setFollowSyll(FollowSyll followSyll) {
+        this.followSyll = followSyll;
+    }
+
     public void createSyllable(Syllable inputSyll) throws SQLException {
-        String dmlString = "INSERT INTO " + Main.SYLLTBL + " (" + Main.SPELLED + ", " + Main.PHONETIC + ", " + Main.POSITION + ", "
-                + Main.SYLLTYPE + ", " + Main.MEANING + ", " + Main.DATEADDED + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
+        String dmlString = "INSERT INTO " + Main.SYLLTBL + " (" +
+                Main.SPELLED + ", " +
+                Main.PHONETIC + ", " +
+                Main.POSITION + ", " +
+                Main.SYLLTYPE + ", " +
+                Main.MEANING + ", " +
+                Main.SVOW + ", " +
+                Main.SELF + ", " +
+                Main.FSYLL + ", " +
+                Main.DATEADDED + ") " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        //SPELLED TEXTFIELD
         prepStmt.setString(1, inputSyll.getSpelling());
-        //PHONETIC TEXTFIELD
         prepStmt.setString(2, inputSyll.getPhonetic());
-        //POSITION COMBO BOX
         prepStmt.setString(3, inputSyll.getPosition());
-        //SYLLTYPE COMBO BOX
         prepStmt.setString(4, inputSyll.getSyllType());
-        //MEANING TEXTFIELD
         prepStmt.setString(5, inputSyll.getMeaning());
-        //DATEADDED SYSTEM DATETIME
-        prepStmt.setString(6, inputSyll.getDateAdded());
+        prepStmt.setBoolean(6, inputSyll.issVowelFlag());
+        prepStmt.setBoolean(7, inputSyll.isSelfFlag());
+        prepStmt.setString(8, inputSyll.getFollowSyll().toString());
+        prepStmt.setString(9, inputSyll.getDateAdded());
         prepStmt.execute();
         DBConnection.dbConnector().close();
     }

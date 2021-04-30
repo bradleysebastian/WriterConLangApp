@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,15 +22,9 @@ public class CreateSyllableController implements Initializable {
     private Stage primaryStage;
     private Parent newScene;
     private Syllable newSyll;
-    //SQL Constants
-    static final String SYLLTBL = "conSyll";
-    static final String ID = "_id";
-    static final String SPELLED = "spelled";
-    static final String PHONETIC = "phonetic";
-    static final String POSITION = "position";
-    static final String SYLLTYPE = "syllType";
-    static final String MEANING = "meaning";
-    static final String DATEADDED = "dateAdded";
+    private boolean sVowelFlag = false;
+    private Syllable.FollowSyll fSyllType;
+    private char[] vowelList = {'a', 'e', 'i', 'o', 'u', 'y'};
     //FORM Variables
     @FXML
     private TextField syllSpell;
@@ -46,32 +37,35 @@ public class CreateSyllableController implements Initializable {
     @FXML
     private ComboBox<String> syllType;
     @FXML
-    private Button cnlBtn;
+    private ComboBox<String> fSyll;
+    @FXML
+    private CheckBox selfFlagChkBx;
 
     public void saveSyllable(ActionEvent saveSyllBtnP) throws SQLException, IOException {
         //DMLString
         if (syllSpell.getText().isEmpty() || syllPhone.getText().isEmpty()){
             showAlert();
         } else {
-//            String dmlString = "INSERT INTO " + SYLLTBL + " (" + SPELLED + ", " + PHONETIC + ", " + POSITION + ", "
-//                    + SYLLTYPE + ", " + MEANING + ", " + DATEADDED + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
-//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-//            //SPELLED TEXTFIELD
-//            prepStmt.setString(1, syllSpell.getText());
-//            //PHONETIC TEXTFIELD
-//            prepStmt.setString(2, syllPhone.getText());
-//            //POSITION COMBO BOX
-//            prepStmt.setString(3, position.getValue());
-//            //SYLLTYPE COMBO BOX
-//            prepStmt.setString(4, syllType.getValue());
-//            //MEANING TEXTFIELD
-//            prepStmt.setString(5, meaning.getText());
-//            //DATEADDED SYSTEM DATETIME
-//            prepStmt.setString(6, ZonedDateTime.now().toLocalDateTime().toString());
-//            prepStmt.execute();
-//            DBConnection.dbConnector().close();
+            String spelling = syllSpell.getText();
+            for (int i = 0; i < vowelList.length; i++){ //loop thru vowel char array, checking 1st char in entered syll
+                if (spelling.charAt(0) == vowelList[i]) {
+                    sVowelFlag = true; //sVowelFlag already set to false
+                }
+            } //Switch to set Syllable's ENUM
+            switch (fSyll.getValue()) {
+                case "Any":
+                    fSyllType = Syllable.FollowSyll.Any;
+                    break;
+                case "Vowel":
+                    fSyllType = Syllable.FollowSyll.Vowel;
+                    break;
+                case "Consonant":
+                    fSyllType = Syllable.FollowSyll.Consonant;
+                    break;
+            }
             newSyll = new Syllable(-1, syllSpell.getText(), syllPhone.getText(), position.getValue(),
-                    syllType.getValue(), meaning.getText(), ZonedDateTime.now().toLocalDateTime().toString());
+                    syllType.getValue(), meaning.getText(), ZonedDateTime.now().toLocalDateTime().toString(),
+                    sVowelFlag, selfFlagChkBx.isSelected(), fSyllType);
             newSyll.createSyllable(newSyll);
             returnCreateWordMenu(saveSyllBtnP);
         }
@@ -101,5 +95,7 @@ public class CreateSyllableController implements Initializable {
         syllType.getItems().addAll("Regular", "Prefix", "Suffix",
                 "Compound", "Separator");
         syllType.getSelectionModel().selectFirst();
+        fSyll.getItems().addAll( "Any", "Vowel", "Consonant");
+        fSyll.getSelectionModel().selectFirst();
     }
 }
