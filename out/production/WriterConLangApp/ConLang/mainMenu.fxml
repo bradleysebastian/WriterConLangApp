@@ -33,7 +33,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addEngDataBtn" mnemonicParsing="false" onAction="#onActionAddEnglish" text="Add English Test Data" />
+                  <Button fx:id="addEngDataBtn" mnemonicParsing="false" onAction="#onActionAddEnglish" text="Add Japanese Test Data" />
                   <Button fx:id="deleteDataBtn" mnemonicParsing="false" onAction="#onActionRemoveAllData" text="Remove Test Data" />
                </children>
             </HBox>

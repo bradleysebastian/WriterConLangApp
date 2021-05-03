@@ -69,9 +69,13 @@ public class CreateWordController {
         primaryStage.show();
     }
 
-    public void constructWord(ActionEvent menuBtnP) throws SQLException {
+    public void constructWord() throws SQLException {
         String currSyll = "";
-        String followSyll = "";
+        int followSyll;
+        if (Math.random() >= 0.5) {
+            followSyll = 1;
+        } else {followSyll = 0;}
+        System.out.println(followSyll); //TODO Remove test
         //# of Syllables from form (ENSURE INT ENTERED!!!)
         int syllCount = 0;
         try {
@@ -92,29 +96,33 @@ public class CreateWordController {
                 newGenWord.getSyllable("Last", "Last-Middle", "Any", followSyll, currSyll);
             } else if (i != 1 && i <= (syllCount / 2)) {//First-Middle, Middle, Any
                 newGenWord.getSyllable("Middle", "First-Middle", "Any", followSyll, currSyll);
-            } else if ((Math.abs(1 - i)) == (syllCount - i)) {//Exact Middle
-                newGenWord.getSyllable("", "Exact-Middle", "", followSyll, currSyll);
+//            } else if ((Math.abs(1 - i)) == (syllCount - i)) {//Exact Middle //TODO This option doesn't make much practical sense
+//                newGenWord.getSyllable("", "Exact-Middle", "", followSyll, currSyll);
             } else if (i != syllCount && i > (syllCount / 2)) {//Last-Middle, Middle, Any
                 newGenWord.getSyllable("Middle", "Last-Middle", "Any", followSyll, currSyll);
             } else {//Middle, Any
                 newGenWord.getSyllable("", "Middle", "Any", followSyll, currSyll);
             }
+            System.out.println(newGenWord.getSyllList().get(i -1).getSpelling());
             //Check current syllable's value as to whether it can follow itself
-            if (newGenWord.getSyllList().get(i -1).isSelfFlag() == false) { //Corresponds to WHERE NOT LIKE
+            if (newGenWord.getSyllList().get(i - 1).isSelfFlag() == false) { //Corresponds to WHERE NOT LIKE
                 currSyll = newGenWord.getSyllList().get(i - 1).getSpelling();
             } else {
                 currSyll = ""; //Corresponds to WHERE NOT LIKE
             }
             //Check current syllable's value as to what type of starting syllable sound can follow it
-            switch (newGenWord.getSyllList().get(i -1).getFollowSyll()){
-                case Any:
-                    followSyll = "%";
-                    break;
+            switch (newGenWord.getSyllList().get(i - 1).getFollowSyll()){
                 case Vowel:
-                    followSyll = "Vowel";
+                    followSyll = 1;
+                    break;
+                case Consonant:
+                    followSyll = 0;
                     break;
                 default:
-                    followSyll = "Consonant";
+                    if (Math.random() >= 0.5) {
+                        followSyll = 1;
+                    } else {followSyll = 0;}
+                    System.out.println(followSyll);//TODO REmove test
                     break;
             }
         }

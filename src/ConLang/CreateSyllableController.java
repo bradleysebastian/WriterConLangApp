@@ -89,8 +89,8 @@ public class CreateSyllableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        position.getItems().addAll("Any","First","First-Middle","Exact Middle",
-                "Last-Middle", "Last");
+        position.getItems().addAll("Any","First","First-Middle",
+                "Last-Middle", "Last"); //REMOVED: "Exact Middle",
         position.getSelectionModel().selectFirst();
         syllType.getItems().addAll("Regular", "Prefix", "Suffix",
                 "Compound", "Separator");

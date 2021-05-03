@@ -116,18 +116,19 @@ public class ConWord {
     }
     //Returns 1 Syllable
     public void getSyllable(String syllType1, String syllType2, String syllType3,
-                            String followSyll, String selfSyll) throws SQLException {
-        //TODO - Work out two new WHERE clauses:
-        //TODO - WHERE spelling NOT LIKE [currentSyllable] or ""
-        //TODO - WHERE followSyll LIKE [Vowel, Consonant, or wildcard]
-        //TODO - WHERE (followSyll LIKE 'Consonant' AND spelled NOT LIKE '');
+                            int followSyll, String selfSyll) throws SQLException {
+//        String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
+//                + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
+//                + " WHERE (" + FSYLL + " LIKE ? AND " + SPELLED + " NOT LIKE ?)"
+//                + " AND (" + POSITION + " LIKE ? OR " + POSITION + " LIKE ? OR " + POSITION + " LIKE ?)"
+//                + " ORDER BY RANDOM() LIMIT 1)";
         String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
                 + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
-                + " WHERE (" + FSYLL + " LIKE ? AND " + SPELLED + " NOT LIKE ?)"
+                + " WHERE (" + SVOW + " = ? AND " + SPELLED + " NOT LIKE ?)"
                 + " AND (" + POSITION + " LIKE ? OR " + POSITION + " LIKE ? OR " + POSITION + " LIKE ?)"
                 + " ORDER BY RANDOM() LIMIT 1)";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, followSyll);
+        prepStmt.setInt(1, followSyll);
         prepStmt.setString(2, selfSyll);
         prepStmt.setString(3, syllType1);
         prepStmt.setString(4, syllType2);
@@ -135,6 +136,7 @@ public class ConWord {
         prepStmt.execute();
         ResultSet sqlResults = prepStmt.getResultSet();
         while (sqlResults.next() ) {
+            System.out.println("Resultset");//TODO remove test
             //Translate 1/0 to T/F for sVowelFlag
             boolean sVowFlgVal;
             if (sqlResults.getInt(7) == 1) {
