@@ -134,6 +134,15 @@ public class CreateWordController {
         phoneticGenWord.setText(newGenWord.getPhonetic());
     }
 
+    public void checkSyllableVariety() throws SQLException {
+        String dmlString = "";
+        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+    }
+
+    public boolean isResultSetEmpty(ResultSet resSet) throws SQLException {
+        return (!resSet.isBeforeFirst() && resSet.getRow() == 0);
+    }
+
     public int totalSyllCount() throws SQLException {
         //Ensure # of syllables entered doesn't exceed # of syllables in DB
         int totalSyllables = 0;
