@@ -136,7 +136,6 @@ public class ConWord {
         prepStmt.execute();
         ResultSet sqlResults = prepStmt.getResultSet();
         while (sqlResults.next() ) {
-            System.out.println("Resultset");//TODO remove test
             //Translate 1/0 to T/F for sVowelFlag
             boolean sVowFlgVal;
             if (sqlResults.getInt(7) == 1) {

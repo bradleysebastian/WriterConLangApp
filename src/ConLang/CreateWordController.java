@@ -75,7 +75,7 @@ public class CreateWordController {
         if (Math.random() >= 0.5) {
             followSyll = 1;
         } else {followSyll = 0;}
-        System.out.println(followSyll); //TODO Remove test
+        System.out.println("First follSyll" + followSyll); //TODO Remove test
         //# of Syllables from form (ENSURE INT ENTERED!!!)
         int syllCount = 0;
         try {
@@ -122,7 +122,7 @@ public class CreateWordController {
                     if (Math.random() >= 0.5) {
                         followSyll = 1;
                     } else {followSyll = 0;}
-                    System.out.println(followSyll);//TODO REmove test
+                    System.out.println("Loop Count: " + i + " follSyll: " + followSyll);//TODO REmove test
                     break;
             }
         }
