@@ -135,7 +135,28 @@ public class ConWord {
         prepStmt.execute();
         ResultSet sqlResults = prepStmt.getResultSet();
         while (sqlResults.next() ) {
-//            boolean
+            //Translate 1/0 to T/F for sVowelFlag
+            boolean sVowFlgVal;
+            if (sqlResults.getInt(7) == 1) {
+                sVowFlgVal = true;
+            } else { sVowFlgVal = false;}
+            //Translate 1/0 to T/F for selfFlag
+            boolean selfFlgVal;
+            if (sqlResults.getInt(8) == 1) {
+                selfFlgVal = true;
+            } else {selfFlgVal = false;}
+            //Translate Any,Vowel,Cons to FollowSyll Enum
+            Syllable.FollowSyll follSyllEnum;
+            switch (sqlResults.getString(9)){
+                case "Any":
+                    follSyllEnum = Syllable.FollowSyll.Any;
+                    break;
+                case "Vowel":
+                    follSyllEnum = Syllable.FollowSyll.Vowel;
+                    break;
+                default:
+                    follSyllEnum = Syllable.FollowSyll.Consonant;
+            }
             Syllable newSyll = new Syllable(
                     sqlResults.getInt(1), //ID#
                     sqlResults.getString(2), //spelled
@@ -143,9 +164,10 @@ public class ConWord {
                     sqlResults.getString(4), //position
                     sqlResults.getString(5), //syllType
                     sqlResults.getString(6), //meaning
-                    sqlResults.getString(10)); //dateAdded (SQL table re-ordered)
-            //TODO Set 3 new fields for each syllable
-            //TODO If followSyll Any, then sVowelFlag wildcard - If followSyll
+                    sqlResults.getString(10), //dateAdded (SQL table re-ordered)
+                    sVowFlgVal,
+                    selfFlgVal,
+                    follSyllEnum);
             syllList.add(newSyll);
         }
     }

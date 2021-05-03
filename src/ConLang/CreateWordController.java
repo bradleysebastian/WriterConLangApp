@@ -72,7 +72,6 @@ public class CreateWordController {
     public void constructWord(ActionEvent menuBtnP) throws SQLException {
         String currSyll = "";
         String followSyll = "";
-        boolean selfFlag = false;
         //# of Syllables from form (ENSURE INT ENTERED!!!)
         int syllCount = 0;
         try {
@@ -88,7 +87,7 @@ public class CreateWordController {
         //Syllables counted - logic looped thru for each syllable, added to ConWord's Syllable List
         for (int i = 1; i <= syllCount; i++) {
             if (i == 1) {//First, First-Middle, Any
-                newGenWord.getSyllable("First", "First-Middle", "Any", followSyll, currSyll); //TODO Add currSyll as argument to getSyllable
+                newGenWord.getSyllable("First", "First-Middle", "Any", followSyll, currSyll);
             } else if (i == syllCount && i > 1) {//Last, Last-Middle, Any
                 newGenWord.getSyllable("Last", "Last-Middle", "Any", followSyll, currSyll);
             } else if (i != 1 && i <= (syllCount / 2)) {//First-Middle, Middle, Any
@@ -100,15 +99,24 @@ public class CreateWordController {
             } else {//Middle, Any
                 newGenWord.getSyllable("", "Middle", "Any", followSyll, currSyll);
             }
-            //TODO - Set currentSyllable
-            currSyll = "";
-            if (newGenWord.getSyllList().get(i - 1).isSelfFlag() == true) {
+            //Check current syllable's value as to whether it can follow itself
+            if (newGenWord.getSyllList().get(i -1).isSelfFlag() == false) { //Corresponds to WHERE NOT LIKE
                 currSyll = newGenWord.getSyllList().get(i - 1).getSpelling();
+            } else {
+                currSyll = ""; //Corresponds to WHERE NOT LIKE
             }
-            //TODO - Check selfFlag
-            //TODO - If selfFlag: False, feeds currentSyllable into method (populates WHERE spelling NOT LIKE "")
-            //TODO - Set followSyll value
-            //TODO - followSyll value feeds [something] into method (populates WHERE followSyll LIKE "")
+            //Check current syllable's value as to what type of starting syllable sound can follow it
+            switch (newGenWord.getSyllList().get(i -1).getFollowSyll()){
+                case Any:
+                    followSyll = "%";
+                    break;
+                case Vowel:
+                    followSyll = "Vowel";
+                    break;
+                default:
+                    followSyll = "Consonant";
+                    break;
+            }
         }
         //ConWord set from its Syllable list - getters display to form
         newGenWord.setSpelling(newGenWord.getSyllList());
