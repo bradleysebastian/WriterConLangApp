@@ -70,6 +70,11 @@ public class CreateWordController {
     }
 
     public void constructWord() throws SQLException {
+        //Ensure there are some syllables starting w/ Vowels and Consonants
+        if(checkSyllableVariety()){
+            return;
+        }
+//        if (checkSyllableVariety())
         String currSyll = "";
         int followSyll;
         if (Math.random() >= 0.5) {
@@ -134,12 +139,32 @@ public class CreateWordController {
         phoneticGenWord.setText(newGenWord.getPhonetic());
     }
 
-    public void checkSyllableVariety() throws SQLException {
-        String dmlString = "";
+    public boolean checkSyllableVariety() throws SQLException {
+        //Check for syllables that start with Vowels and Consonants - Return
+        boolean chkStartVowels;
+        boolean chkStartConsonants;
+        String dmlString = "SELECT * FROM conSyll WHERE sVowelFlag = ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+        prepStmt.setInt(1,1);
+        prepStmt.execute();
+        ResultSet sqlResults = prepStmt.getResultSet();
+        chkStartVowels = isResultSetEmpty(sqlResults);
+        prepStmt.setInt(1, 0);
+        prepStmt.execute();
+        sqlResults = prepStmt.getResultSet();
+        chkStartConsonants = isResultSetEmpty(sqlResults);
+        if (chkStartVowels || chkStartConsonants) { //TRUE FOR NO RESULTS ON VOWEL *OR* CONSONANT
+            //TODO Alert
+            Alert noVowOrConsAlert = new Alert(Alert.AlertType.ERROR);
+            noVowOrConsAlert.setContentText("Missing syllables that start with vowels or consonants - add some");
+            noVowOrConsAlert.setTitle("Missing needed syllable types");
+            noVowOrConsAlert.show();
+            return true; //Syllables missing
+        } else {return false;}
     }
 
     public boolean isResultSetEmpty(ResultSet resSet) throws SQLException {
+        //TRUE FOR NO RESULTS
         return (!resSet.isBeforeFirst() && resSet.getRow() == 0);
     }
 
