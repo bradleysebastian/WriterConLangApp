@@ -4,6 +4,9 @@ import java.sql.*;
 
 public class DBConnection {
 
+    //TODO test better practice for ensuring resources get closed, try w/ res (and singleton?)
+    private Connection dbConn;
+
     public static void execSQL(String sqlCode){
         try {
             Connection dbConnect = DriverManager.getConnection(Main.DBINFO);

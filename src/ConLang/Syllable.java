@@ -155,6 +155,6 @@ public class Syllable {
         prepStmt.setString(8, inputSyll.getFollowSyll().toString());
         prepStmt.setString(9, inputSyll.getDateAdded());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
 }

@@ -117,11 +117,6 @@ public class ConWord {
     //Returns 1 Syllable
     public void getSyllable(String syllType1, String syllType2, String syllType3,
                             int followSyll, String selfSyll) throws SQLException {
-//        String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
-//                + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
-//                + " WHERE (" + FSYLL + " LIKE ? AND " + SPELLED + " NOT LIKE ?)"
-//                + " AND (" + POSITION + " LIKE ? OR " + POSITION + " LIKE ? OR " + POSITION + " LIKE ?)"
-//                + " ORDER BY RANDOM() LIMIT 1)";
         String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
                 + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
                 + " WHERE (" + SVOW + " = ? AND " + SPELLED + " NOT LIKE ?)"
@@ -171,13 +166,14 @@ public class ConWord {
                     follSyllEnum);
             syllList.add(newSyll);
         }
+        sqlResults.close();
+        prepStmt.close();
     }
-    //TODO Move this method???
+    //TODO Maybe move this method???
     //Populate List of All (or specified search) Words
     public static void populateLexiConWords(String searchText) throws SQLException {
         lexiConWords.clear();
-//        String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE '%" +
-//                searchText + "%'";
+
         String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE ?";
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.setString(1, "%" + searchText + "%");
@@ -194,6 +190,8 @@ public class ConWord {
             //Observable List in class declarations above
             lexiConWords.add(addWord);
         }
+        sqlResults.close();
+        prepStmt.close();
     }
     //TODO SQL Storage
     public void storeLexiConWord(ConWord newConWord) throws SQLException {
@@ -207,7 +205,7 @@ public class ConWord {
         prepStmt.setString(4, newConWord.getMeaning());
         prepStmt.setString(5, newConWord.getDateAdded());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
     //TODO Modify Word Record in SQL
     public void changeLexiConWord(ConWord modConWord) throws SQLException {
@@ -222,7 +220,7 @@ public class ConWord {
         prepStmt.setString(4, modConWord.getMeaning());
         prepStmt.setInt(5, modConWord.getId());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
 
     public void deleteLexiConWord(ConWord delConWord) throws SQLException {
@@ -230,6 +228,6 @@ public class ConWord {
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.setInt(1, delConWord.getId());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
 }

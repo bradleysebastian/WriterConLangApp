@@ -67,5 +67,6 @@ public class MainMenuController {
         dmlString = "DELETE FROM " + Main.PPTTBL;
         prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.execute();
+        prepStmt.close();
     }
 }

@@ -153,6 +153,8 @@ public class CreateWordController {
         prepStmt.execute();
         sqlResults = prepStmt.getResultSet();
         chkStartConsonants = isResultSetEmpty(sqlResults);
+        sqlResults.close();
+        prepStmt.close();
         if (chkStartVowels || chkStartConsonants) { //TRUE FOR NO RESULTS ON VOWEL *OR* CONSONANT
             //TODO Alert
             Alert noVowOrConsAlert = new Alert(Alert.AlertType.ERROR);
@@ -179,11 +181,8 @@ public class CreateWordController {
             totalSyllables = sqlResults.getInt(1);
             System.out.println(totalSyllables);
         }
-//        if (syllCount <= totalSyllables) {
-//        } else {
-//            System.out.println("Too large of number foir syllables");
-//            //TODO Hard stop
-//        }
+        sqlResults.close();
+        prepStmt.close();
         return totalSyllables;
     }
 }

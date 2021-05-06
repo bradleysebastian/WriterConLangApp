@@ -52,7 +52,6 @@ public class AssignSubjectController implements Initializable {
     }
 
     public void modifyPPT(ActionEvent modifyBtnP) throws IOException {
-        //TODO modify PPT Subject
         selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
             //Get current Stage
@@ -67,7 +66,6 @@ public class AssignSubjectController implements Initializable {
     }
 
     public void assignPPT(ActionEvent assignBtnP) throws IOException {
-        //TODO assign ConWord to PPT Subject
         selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
             //Get current Stage
@@ -82,7 +80,6 @@ public class AssignSubjectController implements Initializable {
     }
 
     public void deletePPT(ActionEvent deleteBtnP) throws SQLException {
-        //TODO delete PPT Subject
         selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
             PPTSubject.deletePPTSubject(selectedPPTSubject);

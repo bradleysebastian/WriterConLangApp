@@ -104,7 +104,7 @@ public class PPTSubject {
         prepStmt.setString(2, newSubject.getDescription());
         prepStmt.setString(3, newSubject.getDateAdded());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
     public static void populatePPTSubjects(String searchTxt) throws SQLException {
         pptSubjects.clear();
@@ -133,7 +133,8 @@ public class PPTSubject {
             newSubject.setDateAdded(quResults.getString(5));
             pptSubjects.add(newSubject);
         }
-        DBConnection.dbConnector().close();
+        quResults.close();
+        prepStmt.close();
     }
 
     public static void deletePPTSubject(PPTSubject delSubject) throws SQLException {
@@ -141,20 +142,8 @@ public class PPTSubject {
         PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
         prepStmt.setInt(1, delSubject.getPptSubjectID());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
-
-//    public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
-//        String dmlString = "UPDATE " + Main.PPTTBL +
-//                " SET " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
-//                "WHERE " + Main.ID + " = ?";
-//        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-//        prepStmt.setString(1, modSubject.getArcheType());
-//        prepStmt.setString(2, modSubject.getDescription());
-//        prepStmt.setInt(3, modSubject.getPptSubjectID());
-//        prepStmt.execute();
-//        DBConnection.dbConnector().close();
-//    }
 
     public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
         String dmlString = "UPDATE " + Main.PPTTBL +
@@ -166,6 +155,6 @@ public class PPTSubject {
         prepStmt.setString(3, modSubject.getDescription());
         prepStmt.setInt(4, modSubject.getPptSubjectID());
         prepStmt.execute();
-        DBConnection.dbConnector().close();
+        prepStmt.close();
     }
 }

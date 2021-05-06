@@ -81,10 +81,6 @@ public class AssignWordController implements Initializable {
             pptNameTblCol.setCellValueFactory(new PropertyValueFactory<>("pptName"));
             pptArchTblCol.setCellValueFactory(new PropertyValueFactory<>("archeType"));
             pptDescTblCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-//            private String pptName;
-//            private String archeType;
-//            private String description;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
