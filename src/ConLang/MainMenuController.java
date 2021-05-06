@@ -46,7 +46,7 @@ public class MainMenuController {
         primaryStage.show();
     }
 
-    public void closeApp(ActionEvent closeAppBtnP) {
+    public void closeApp() {
         System.exit(0);
     }
 
