@@ -1,5 +1,6 @@
 package ConLang;
 
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class CreateSubjectController implements Initializable {
         //TODO Combo selector for Person, Place, or Thing
     }
 
-    public void savePPT(ActionEvent saveBtnP) throws SQLException, IOException {
+    public void savePPT(ActionEvent saveBtnP) throws IOException {
         //TODO Save Subject entry into DB
         PPTSubject newSubject = new PPTSubject();
         newSubject.setArcheType(pptCombo.getValue());
@@ -64,5 +65,6 @@ public class CreateSubjectController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         pptCombo.getItems().addAll("Person", "Place", "Thing");
         pptCombo.getSelectionModel().selectFirst();
+//        pptDescTxtF.requestFocus();
     }
 }

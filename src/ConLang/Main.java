@@ -50,47 +50,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void addTestData() throws SQLException {
+    public static void addTestData() {
         Syllable newSyll;
-//        newSyll = new Syllable(-1,"a","ah","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"e","eh","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,true,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"i","ih","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"o","oh","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,true,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"u","uh","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"a","ay","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"e","ee","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,true,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"i","eye","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"o","oe","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,true,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"u","you","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"y","why","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"ch","cheh","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Vowel);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"mp","eh'mp","Last-Middle","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Consonant);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"t","tee","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,true,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"c","see","First-Middle","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Vowel);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"c","k'eh","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Consonant);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"gh","ff","Last-Middle","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Consonant);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"str","str","First-Middle","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Vowel);
-//        newSyll.createSyllable(newSyll);
-//        newSyll = new Syllable(-1,"ck","kk","Last-Middle","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),false,false,Syllable.FollowSyll.Any);
-//        newSyll.createSyllable(newSyll);
-
         //Japanese Alphabet
         newSyll = new Syllable(-1,"a","ah","Any","Regular","none",ZonedDateTime.now().toLocalDateTime().toString(),true,false,Syllable.FollowSyll.Any);
         newSyll.createSyllable(newSyll);

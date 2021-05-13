@@ -96,17 +96,21 @@ public class PPTSubject {
         PPTSubject.pptSubjects = pptSubjects;
     }
 
-    public void storePPTSubject(PPTSubject newSubject) throws SQLException {
+    public void storePPTSubject(PPTSubject newSubject) {
         String dmlString = "INSERT INTO " + Main.PPTTBL + " (" + Main.ARCH + ", " + Main.DESC + ", " + Main.DATEADDED + ")" +
                 "VALUES (?, ?, ?)";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, newSubject.getArcheType());
-        prepStmt.setString(2, newSubject.getDescription());
-        prepStmt.setString(3, newSubject.getDateAdded());
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, newSubject.getArcheType());
+            prepStmt.setString(2, newSubject.getDescription());
+            prepStmt.setString(3, newSubject.getDateAdded());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
-    public static void populatePPTSubjects(String searchTxt) throws SQLException {
+    public static void populatePPTSubjects(String searchTxt) {
         pptSubjects.clear();
         String dmlString = "SELECT " + Main.PREFIXPPT+Main.ID +
                 ", " + Main.PREFIXWORD+Main.SPELLED +
@@ -116,45 +120,59 @@ public class PPTSubject {
                 " FROM " + Main.PPTTBL + " LEFT JOIN " + Main.WORDTBL +
                 " ON " + Main.PREFIXPPT+Main.WID + " = " + Main.PREFIXWORD+Main.ID +
                 " WHERE " + Main.PREFIXPPT+Main.DESC + " LIKE ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, "%" + searchTxt + "%");
-        prepStmt.execute();
-        ResultSet quResults = prepStmt.getResultSet();
-        while (quResults.next()){
-            PPTSubject newSubject = new PPTSubject();
-            newSubject.setPptSubjectID(quResults.getInt(1));
-            if (quResults.getString(2) == null){
-                newSubject.setPptName("Not Assigned");
-            } else {
-                newSubject.setPptName(quResults.getString(2));
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, "%" + searchTxt + "%");
+            prepStmt.execute();
+            try (ResultSet quResults = prepStmt.getResultSet()) {
+//                ResultSet quResults = prepStmt.getResultSet();
+                while (quResults.next()) {
+                    PPTSubject newSubject = new PPTSubject();
+                    newSubject.setPptSubjectID(quResults.getInt(1));
+                    if (quResults.getString(2) == null) {
+                        newSubject.setPptName("Not Assigned");
+                    } else {
+                        newSubject.setPptName(quResults.getString(2));
+                    }
+                    newSubject.setArcheType(quResults.getString(3));
+                    newSubject.setDescription(quResults.getString(4));
+                    newSubject.setDateAdded(quResults.getString(5));
+                    pptSubjects.add(newSubject);
+                }
             }
-            newSubject.setArcheType(quResults.getString(3));
-            newSubject.setDescription(quResults.getString(4));
-            newSubject.setDateAdded(quResults.getString(5));
-            pptSubjects.add(newSubject);
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
         }
-        quResults.close();
-        prepStmt.close();
+//        quResults.close();
+//        prepStmt.close();
     }
 
-    public static void deletePPTSubject(PPTSubject delSubject) throws SQLException {
+    public static void deletePPTSubject(PPTSubject delSubject) {
         String dmlString = "DELETE FROM " + Main.PPTTBL + " WHERE " + Main.ID + " = ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setInt(1, delSubject.getPptSubjectID());
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setInt(1, delSubject.getPptSubjectID());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
 
-    public static void modifyPPTSubject(PPTSubject modSubject) throws SQLException {
+    public static void modifyPPTSubject(PPTSubject modSubject) {
         String dmlString = "UPDATE " + Main.PPTTBL +
                 " SET wordId = ?, " + Main.ARCH + " = ?, " + Main.DESC + " = ? " +
                 "WHERE " + Main.ID + " = ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setInt(1, modSubject.getWordID());
-        prepStmt.setString(2, modSubject.getArcheType());
-        prepStmt.setString(3, modSubject.getDescription());
-        prepStmt.setInt(4, modSubject.getPptSubjectID());
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setInt(1, modSubject.getWordID());
+            prepStmt.setString(2, modSubject.getArcheType());
+            prepStmt.setString(3, modSubject.getDescription());
+            prepStmt.setInt(4, modSubject.getPptSubjectID());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
 }

@@ -44,7 +44,7 @@ public class FinalizeWordController implements Initializable {
         //TODO REMOVE
     }
 
-    public void saveNewConWord(ActionEvent saveBtnP) throws IOException, SQLException {
+    public void saveNewConWord(ActionEvent saveBtnP) throws IOException {
         //Set meaning to blank instead of null
         if (meaningGenWord.getText().isEmpty()) {
             meaningGenWord.setText("");

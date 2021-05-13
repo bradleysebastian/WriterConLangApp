@@ -40,7 +40,7 @@ public class LexiConWordsController implements Initializable {
         return selectedWord;
     }
 
-    public void searchWords() throws SQLException {
+    public void searchWords() {
         ConWord.populateLexiConWords(searchTextF.getText());
     }
 
@@ -81,7 +81,7 @@ public class LexiConWordsController implements Initializable {
         modAlert.show();
     }
 
-    public void deleteWord(ActionEvent actionEvent) throws SQLException {
+    public void deleteWord() {
         selectedWord = lexiConWordsTblVw.getSelectionModel().getSelectedItem();
         if(selectedWord != null) {
             selectedWord.deleteLexiConWord(selectedWord);
@@ -102,16 +102,11 @@ public class LexiConWordsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        System.out.println(searchTextF.getText());
-        try {
             ConWord.populateLexiConWords(searchTextF.getText());
             lexiConWordsTblVw.setItems(ConWord.getLexiConWords());
             spelledTblCol.setCellValueFactory(new PropertyValueFactory<>("spelling"));
             phoneticTblCol.setCellValueFactory(new PropertyValueFactory<>("phonetic"));
             wordTypeTblCol.setCellValueFactory(new PropertyValueFactory<>("wordType"));
             meaningTblCol.setCellValueFactory(new PropertyValueFactory<>("meaning"));
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
     }
 }

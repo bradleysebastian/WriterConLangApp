@@ -47,7 +47,7 @@ public class AssignSubjectController implements Initializable {
         primaryStage.show();
     }
 
-    public void searchPPT() throws SQLException {
+    public void searchPPT() {
         PPTSubject.populatePPTSubjects(searchTxtF.getText());
     }
 
@@ -79,7 +79,7 @@ public class AssignSubjectController implements Initializable {
         }
     }
 
-    public void deletePPT(ActionEvent deleteBtnP) throws SQLException {
+    public void deletePPT() {
         selectedPPTSubject = pptSubjectTblVw.getSelectionModel().getSelectedItem();
         if (selectedPPTSubject != null){
             PPTSubject.deletePPTSubject(selectedPPTSubject);
@@ -108,16 +108,10 @@ public class AssignSubjectController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
             PPTSubject.populatePPTSubjects("");
             pptSubjectTblVw.setItems(PPTSubject.getPptSubjects());
             pptNameTblCol.setCellValueFactory(new PropertyValueFactory<>("pptName"));
             archeTypeTblCol.setCellValueFactory(new PropertyValueFactory<>("archeType"));
             descTblCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-
-
     }
 }

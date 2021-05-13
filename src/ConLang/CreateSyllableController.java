@@ -41,7 +41,7 @@ public class CreateSyllableController implements Initializable {
     @FXML
     private CheckBox selfFlagChkBx;
 
-    public void saveSyllable(ActionEvent saveSyllBtnP) throws SQLException, IOException {
+    public void saveSyllable(ActionEvent saveSyllBtnP) throws IOException {
         //DMLString
         if (syllSpell.getText().isEmpty() || syllPhone.getText().isEmpty()){
             showAlert();

@@ -38,7 +38,7 @@ public class ModifyWordController implements Initializable {
         //TODO REMOVE?
     }
 
-    public void saveLexiConWord(ActionEvent saveBtnP) throws SQLException, IOException {
+    public void saveLexiConWord(ActionEvent saveBtnP) throws IOException {
         //Set meaning to blank instead of null
         if (meaningTxtF.getText().isEmpty()) {
             meaningTxtF.setText("");
@@ -78,7 +78,6 @@ public class ModifyWordController implements Initializable {
         spelledTxtF.setText(selectedWord.getSpelling());
         phoneticTxtF.setText(selectedWord.getPhonetic());
         meaningTxtF.setText(selectedWord.getMeaning());
-
         assignCombo.getItems().addAll("Noun", "Verb", "Adjective", "Pronoun", "Adverb");
         assignCombo.setValue(selectedWord.getWordType());
     }

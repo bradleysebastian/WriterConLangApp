@@ -132,7 +132,7 @@ public class Syllable {
         this.followSyll = followSyll;
     }
 
-    public void createSyllable(Syllable inputSyll) throws SQLException {
+    public void createSyllable(Syllable inputSyll) {
         String dmlString = "INSERT INTO " + Main.SYLLTBL + " (" +
                 Main.SPELLED + ", " +
                 Main.PHONETIC + ", " +
@@ -144,17 +144,21 @@ public class Syllable {
                 Main.FSYLL + ", " +
                 Main.DATEADDED + ") " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, inputSyll.getSpelling());
-        prepStmt.setString(2, inputSyll.getPhonetic());
-        prepStmt.setString(3, inputSyll.getPosition());
-        prepStmt.setString(4, inputSyll.getSyllType());
-        prepStmt.setString(5, inputSyll.getMeaning());
-        prepStmt.setBoolean(6, inputSyll.issVowelFlag());
-        prepStmt.setBoolean(7, inputSyll.isSelfFlag());
-        prepStmt.setString(8, inputSyll.getFollowSyll().toString());
-        prepStmt.setString(9, inputSyll.getDateAdded());
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, inputSyll.getSpelling());
+            prepStmt.setString(2, inputSyll.getPhonetic());
+            prepStmt.setString(3, inputSyll.getPosition());
+            prepStmt.setString(4, inputSyll.getSyllType());
+            prepStmt.setString(5, inputSyll.getMeaning());
+            prepStmt.setBoolean(6, inputSyll.issVowelFlag());
+            prepStmt.setBoolean(7, inputSyll.isSelfFlag());
+            prepStmt.setString(8, inputSyll.getFollowSyll().toString());
+            prepStmt.setString(9, inputSyll.getDateAdded());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
 }

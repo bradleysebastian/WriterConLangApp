@@ -37,12 +37,12 @@ public class AssignWordController implements Initializable {
     @FXML
     private TableColumn<PPTSubject, String> pptDescTblCol;
 
-    public void searchPPTSubjects(ActionEvent searchBtnP) throws SQLException {
+    public void searchPPTSubjects() {
         //TODO search PPT Subjects
         PPTSubject.populatePPTSubjects(searchTxtF.getText());
     }
 
-    public void assignWord(ActionEvent assignBtnP) throws IOException, SQLException {
+    public void assignWord(ActionEvent assignBtnP) throws IOException {
         //TODO Assign Word to PPT Subject
         PPTSubject modSubject = pptSubjectTableView.getSelectionModel().getSelectedItem();
         if (modSubject != null) {
@@ -75,14 +75,10 @@ public class AssignWordController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         selectedWord = LexiConWordsController.getSelectedWord();
         selConWordTxtF.setText(selectedWord.getSpelling());
-        try {
             PPTSubject.populatePPTSubjects("");
             pptSubjectTableView.setItems(PPTSubject.getPptSubjects());
             pptNameTblCol.setCellValueFactory(new PropertyValueFactory<>("pptName"));
             pptArchTblCol.setCellValueFactory(new PropertyValueFactory<>("archeType"));
             pptDescTblCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 }

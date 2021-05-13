@@ -116,118 +116,151 @@ public class ConWord {
     }
     //Returns 1 Syllable
     public void getSyllable(String syllType1, String syllType2, String syllType3,
-                            int followSyll, String selfSyll) throws SQLException {
+                            int followSyll, String selfSyll) {
         String dmlString = "SELECT * FROM " + SYLLTBL + " WHERE "
                 + ID + " IN " + "(SELECT " + ID + " FROM " + SYLLTBL
                 + " WHERE (" + SVOW + " = ? AND " + SPELLED + " NOT LIKE ?)"
                 + " AND (" + POSITION + " LIKE ? OR " + POSITION + " LIKE ? OR " + POSITION + " LIKE ?)"
                 + " ORDER BY RANDOM() LIMIT 1)";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setInt(1, followSyll);
-        prepStmt.setString(2, selfSyll);
-        prepStmt.setString(3, syllType1);
-        prepStmt.setString(4, syllType2);
-        prepStmt.setString(5, syllType3);
-        prepStmt.execute();
-        ResultSet sqlResults = prepStmt.getResultSet();
-        while (sqlResults.next() ) {
-            //Translate 1/0 to T/F for sVowelFlag
-            boolean sVowFlgVal;
-            if (sqlResults.getInt(7) == 1) {
-                sVowFlgVal = true;
-            } else { sVowFlgVal = false;}
-            //Translate 1/0 to T/F for selfFlag
-            boolean selfFlgVal;
-            if (sqlResults.getInt(8) == 1) {
-                selfFlgVal = true;
-            } else {selfFlgVal = false;}
-            //Translate Any,Vowel,Cons to FollowSyll Enum
-            Syllable.FollowSyll follSyllEnum;
-            switch (sqlResults.getString(9)){
-                case "Any":
-                    follSyllEnum = Syllable.FollowSyll.Any;
-                    break;
-                case "Vowel":
-                    follSyllEnum = Syllable.FollowSyll.Vowel;
-                    break;
-                default:
-                    follSyllEnum = Syllable.FollowSyll.Consonant;
+        //TODO try /w resources (TOP):
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)){
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString); //TODO move to try
+            prepStmt.setInt(1, followSyll);
+            prepStmt.setString(2, selfSyll);
+            prepStmt.setString(3, syllType1);
+            prepStmt.setString(4, syllType2);
+            prepStmt.setString(5, syllType3);
+            prepStmt.execute();
+            try (ResultSet sqlResults = prepStmt.getResultSet()) { //NESTED TRY FOR RESULTSET USAGES
+//            ResultSet sqlResults = prepStmt.getResultSet(); //TODO move to NESTED try
+                while (sqlResults.next()) {
+                    //Translate 1/0 to T/F for sVowelFlag
+                    boolean sVowFlgVal;
+                    if (sqlResults.getInt(7) == 1) {
+                        sVowFlgVal = true;
+                    } else {
+                        sVowFlgVal = false;
+                    }
+                    //Translate 1/0 to T/F for selfFlag
+                    boolean selfFlgVal;
+                    if (sqlResults.getInt(8) == 1) {
+                        selfFlgVal = true;
+                    } else {
+                        selfFlgVal = false;
+                    }
+                    //Translate Any,Vowel,Cons to FollowSyll Enum
+                    Syllable.FollowSyll follSyllEnum;
+                    switch (sqlResults.getString(9)) {
+                        case "Any":
+                            follSyllEnum = Syllable.FollowSyll.Any;
+                            break;
+                        case "Vowel":
+                            follSyllEnum = Syllable.FollowSyll.Vowel;
+                            break;
+                        default:
+                            follSyllEnum = Syllable.FollowSyll.Consonant;
+                    }
+                    Syllable newSyll = new Syllable(
+                            sqlResults.getInt(1), //ID#
+                            sqlResults.getString(2), //spelled
+                            sqlResults.getString(3), //phonetic
+                            sqlResults.getString(4), //position
+                            sqlResults.getString(5), //syllType
+                            sqlResults.getString(6), //meaning
+                            sqlResults.getString(10), //dateAdded (SQL table re-ordered)
+                            sVowFlgVal,
+                            selfFlgVal,
+                            follSyllEnum);
+                    syllList.add(newSyll);
+                }
             }
-            Syllable newSyll = new Syllable(
-                    sqlResults.getInt(1), //ID#
-                    sqlResults.getString(2), //spelled
-                    sqlResults.getString(3), //phonetic
-                    sqlResults.getString(4), //position
-                    sqlResults.getString(5), //syllType
-                    sqlResults.getString(6), //meaning
-                    sqlResults.getString(10), //dateAdded (SQL table re-ordered)
-                    sVowFlgVal,
-                    selfFlgVal,
-                    follSyllEnum);
-            syllList.add(newSyll);
+        } catch (SQLException sqlE) { //BOTH OUTER AND INNER TRYS SPIT SQLEXCEPTIONS
+            sqlE.printStackTrace();
         }
-        sqlResults.close();
-        prepStmt.close();
+        //TODO try /w resources (TOP):
+        //TODO Remove any close statements
+//        sqlResults.close();
+//        prepStmt.close();
     }
+
     //TODO Maybe move this method???
     //Populate List of All (or specified search) Words
-    public static void populateLexiConWords(String searchText) throws SQLException {
+    public static void populateLexiConWords(String searchText) {
         lexiConWords.clear();
-
         String dmlString = "SELECT * FROM " + Main.WORDTBL + " WHERE spelled LIKE ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, "%" + searchText + "%");
-        prepStmt.execute();
-        ResultSet sqlResults = prepStmt.getResultSet();
-        while (sqlResults.next()) {
-            ConWord addWord = new ConWord();
-            addWord.setId(sqlResults.getInt(1));
-            addWord.setSpelling(sqlResults.getString(2));
-            addWord.setPhonetic(sqlResults.getString(3));
-            addWord.setWordType(sqlResults.getString(4));
-            addWord.setMeaning(sqlResults.getString(5));
-            addWord.setDateAdded(sqlResults.getString(6));
-            //Observable List in class declarations above
-            lexiConWords.add(addWord);
+        //TODO TRY W/ RESOURCES PREPAREDSTATEMENT
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, "%" + searchText + "%");
+            prepStmt.execute();
+            //TODO TRY W/ RESOURCES RESULTSET
+            try (ResultSet sqlResults = prepStmt.getResultSet()) {
+//            ResultSet sqlResults = prepStmt.getResultSet();
+            while (sqlResults.next()) {
+                ConWord addWord = new ConWord();
+                addWord.setId(sqlResults.getInt(1));
+                addWord.setSpelling(sqlResults.getString(2));
+                addWord.setPhonetic(sqlResults.getString(3));
+                addWord.setWordType(sqlResults.getString(4));
+                addWord.setMeaning(sqlResults.getString(5));
+                addWord.setDateAdded(sqlResults.getString(6));
+                //Observable List in class declarations above
+                lexiConWords.add(addWord);
+                }
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
         }
-        sqlResults.close();
-        prepStmt.close();
+//        sqlResults.close();
+//        prepStmt.close();
     }
     //TODO SQL Storage
-    public void storeLexiConWord(ConWord newConWord) throws SQLException {
+    public void storeLexiConWord(ConWord newConWord) {
         String dmlString = "INSERT INTO " + WORDTBL + " ("
                 + SPELLED + "," + PHONETIC + "," + WORDTYPE + "," + MEANING + "," + DATEADDED + ")" +
                 "VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, newConWord.getSpelling());
-        prepStmt.setString(2, newConWord.getPhonetic());
-        prepStmt.setString(3, newConWord.getWordType());
-        prepStmt.setString(4, newConWord.getMeaning());
-        prepStmt.setString(5, newConWord.getDateAdded());
-        prepStmt.execute();
-        prepStmt.close();
+        try(PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, newConWord.getSpelling());
+            prepStmt.setString(2, newConWord.getPhonetic());
+            prepStmt.setString(3, newConWord.getWordType());
+            prepStmt.setString(4, newConWord.getMeaning());
+            prepStmt.setString(5, newConWord.getDateAdded());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
     //TODO Modify Word Record in SQL
-    public void changeLexiConWord(ConWord modConWord) throws SQLException {
+    public void changeLexiConWord(ConWord modConWord) {
         String dmlString = "UPDATE " + WORDTBL
                 + " SET " + SPELLED + " = ?, " + PHONETIC + " = ?, "
                 + WORDTYPE + " = ?, " + MEANING + " = ?"
                 + "WHERE " + ID + " = ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setString(1, modConWord.getSpelling());
-        prepStmt.setString(2, modConWord.getPhonetic());
-        prepStmt.setString(3, modConWord.getWordType());
-        prepStmt.setString(4, modConWord.getMeaning());
-        prepStmt.setInt(5, modConWord.getId());
-        prepStmt.execute();
-        prepStmt.close();
+        try(PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setString(1, modConWord.getSpelling());
+            prepStmt.setString(2, modConWord.getPhonetic());
+            prepStmt.setString(3, modConWord.getWordType());
+            prepStmt.setString(4, modConWord.getMeaning());
+            prepStmt.setInt(5, modConWord.getId());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
 
-    public void deleteLexiConWord(ConWord delConWord) throws SQLException {
+    public void deleteLexiConWord(ConWord delConWord) {
         String dmlString = "DELETE FROM " + WORDTBL + " WHERE " + ID + " = ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setInt(1, delConWord.getId());
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setInt(1, delConWord.getId());
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+//        prepStmt.close();
     }
 }

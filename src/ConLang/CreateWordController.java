@@ -69,18 +69,17 @@ public class CreateWordController {
         primaryStage.show();
     }
 
-    public void constructWord() throws SQLException {
+    public void constructWord() {
         //Ensure there are some syllables starting w/ Vowels and Consonants
-        if(checkSyllableVariety()){
+        if(checkSyllableVariety()){//TRUE result exits method - Alert in checking method
             return;
         }
-//        if (checkSyllableVariety())
         String currSyll = "";
+        //Initial followSyll set randomly - Determined by query syllable afterward (in loop)
         int followSyll;
         if (Math.random() >= 0.5) {
             followSyll = 1;
         } else {followSyll = 0;}
-        System.out.println("First follSyll" + followSyll); //TODO Remove test
         //# of Syllables from form (ENSURE INT ENTERED!!!)
         int syllCount = 0;
         try {
@@ -108,7 +107,7 @@ public class CreateWordController {
             } else {//Middle, Any
                 newGenWord.getSyllable("", "Middle", "Any", followSyll, currSyll);
             }
-            System.out.println(newGenWord.getSyllList().get(i -1).getSpelling());
+//            System.out.println(newGenWord.getSyllList().get(i -1).getSpelling()); //TODO Remove test
             //Check current syllable's value as to whether it can follow itself
             if (newGenWord.getSyllList().get(i - 1).isSelfFlag() == false) { //Corresponds to WHERE NOT LIKE
                 currSyll = newGenWord.getSyllList().get(i - 1).getSpelling();
@@ -127,36 +126,46 @@ public class CreateWordController {
                     if (Math.random() >= 0.5) {
                         followSyll = 1;
                     } else {followSyll = 0;}
-                    System.out.println("Loop Count: " + i + " follSyll: " + followSyll);//TODO REmove test
                     break;
             }
         }
         //ConWord set from its Syllable list - getters display to form
         newGenWord.setSpelling(newGenWord.getSyllList());
         newGenWord.setPhonetic(newGenWord.getSyllList());
-        DBConnection.dbConnector().close();
+//        DBConnection.dbConnector().close(); //TODO Remove for try w/ resource methodology
         spelledGenWord.setText(newGenWord.getSpelling());
         phoneticGenWord.setText(newGenWord.getPhonetic());
     }
 
-    public boolean checkSyllableVariety() throws SQLException {
-        //Check for syllables that start with Vowels and Consonants - Return
-        boolean chkStartVowels;
-        boolean chkStartConsonants;
+    public boolean checkSyllableVariety() {
+        //Check syllables list to ensure sample has syllables that start with Vowels and Consonants
+        boolean chkStartVowels = true; //TRUE result is UNDESIRED
+        boolean chkStartConsonants = true; //TRUE result is UNDESIRED
         String dmlString = "SELECT * FROM conSyll WHERE sVowelFlag = ?";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.setInt(1,1);
-        prepStmt.execute();
-        ResultSet sqlResults = prepStmt.getResultSet();
-        chkStartVowels = isResultSetEmpty(sqlResults);
-        prepStmt.setInt(1, 0);
-        prepStmt.execute();
-        sqlResults = prepStmt.getResultSet();
-        chkStartConsonants = isResultSetEmpty(sqlResults);
-        sqlResults.close();
-        prepStmt.close();
+        try(PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+//            PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+            prepStmt.setInt(1, 1);
+            prepStmt.execute();
+            try(ResultSet sqlResults = prepStmt.getResultSet()) {
+//                ResultSet sqlResults = prepStmt.getResultSet();
+                chkStartVowels = isResultSetEmpty(sqlResults);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        try(PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+            prepStmt.setInt(1, 0);
+            prepStmt.execute();
+            try(ResultSet sqlResults = prepStmt.getResultSet()) {
+//            sqlResults = prepStmt.getResultSet();
+                chkStartConsonants = isResultSetEmpty(sqlResults);
+            }
+        } catch (SQLException sqle) {
+        sqle.printStackTrace();
+        }
+//        sqlResults.close();
+//        prepStmt.close();
         if (chkStartVowels || chkStartConsonants) { //TRUE FOR NO RESULTS ON VOWEL *OR* CONSONANT
-            //TODO Alert
             Alert noVowOrConsAlert = new Alert(Alert.AlertType.ERROR);
             noVowOrConsAlert.setContentText("Missing syllables that start with vowels or consonants - add some");
             noVowOrConsAlert.setTitle("Missing needed syllable types");
@@ -165,24 +174,28 @@ public class CreateWordController {
         } else {return false;}
     }
 
-    public boolean isResultSetEmpty(ResultSet resSet) throws SQLException {
+    public boolean isResultSetEmpty(ResultSet resSet) {
         //TRUE FOR NO RESULTS
-        return (!resSet.isBeforeFirst() && resSet.getRow() == 0);
+        try {
+            return (!resSet.isBeforeFirst() && resSet.getRow() == 0);
+        } catch (SQLException sqle){
+            return true;
+        }
     }
 
-    public int totalSyllCount() throws SQLException {
-        //Ensure # of syllables entered doesn't exceed # of syllables in DB
-        int totalSyllables = 0;
-        String dmlString = "SELECT COUNT(_id) FROM " + Main.SYLLTBL + ";";
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.execute();
-        ResultSet sqlResults = prepStmt.getResultSet();
-        while (sqlResults.next()) {
-            totalSyllables = sqlResults.getInt(1);
-            System.out.println(totalSyllables);
-        }
-        sqlResults.close();
-        prepStmt.close();
-        return totalSyllables;
-    }
+//    public int totalSyllCount() throws SQLException {
+//        //Ensure # of syllables entered doesn't exceed # of syllables in DB
+//        int totalSyllables = 0;
+//        String dmlString = "SELECT COUNT(_id) FROM " + Main.SYLLTBL + ";";
+//        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
+//        prepStmt.execute();
+//        ResultSet sqlResults = prepStmt.getResultSet();
+//        while (sqlResults.next()) {
+//            totalSyllables = sqlResults.getInt(1);
+//            System.out.println(totalSyllables);
+//        }
+//        sqlResults.close();
+//        prepStmt.close();
+//        return totalSyllables;
+//    }
 }

@@ -50,23 +50,31 @@ public class MainMenuController {
         System.exit(0);
     }
 
-    public void onActionAddEnglish() throws SQLException {
+    public void onActionAddEnglish() {
         //TODO
         Main.addTestData();
 
     }
 
-    public void onActionRemoveAllData() throws SQLException {
+    public void onActionRemoveAllData() {
         //TODO
         String dmlString = "DELETE FROM " + Main.SYLLTBL;
-        PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.execute();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
         dmlString = "DELETE FROM " + Main.WORDTBL;
-        prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.execute();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
         dmlString = "DELETE FROM " + Main.PPTTBL;
-        prepStmt = DBConnection.dbConnector().prepareStatement(dmlString);
-        prepStmt.execute();
-        prepStmt.close();
+        try (PreparedStatement prepStmt = DBConnection.dbConnector().prepareStatement(dmlString)) {
+            prepStmt.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
     }
 }

@@ -34,7 +34,7 @@ public class ModifySubjectController implements Initializable {
         //TODO Person, Place, or Thing selector
     }
 
-    public void saveSubject(ActionEvent saveBtnP) throws IOException, SQLException {
+    public void saveSubject(ActionEvent saveBtnP) throws IOException {
         //TODO Save subject to DB
         selectedPPTSubject.setArcheType(selectCombo.getValue());
         selectedPPTSubject.setDescription(descTxtF.getText());

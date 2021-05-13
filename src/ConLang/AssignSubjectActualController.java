@@ -39,12 +39,12 @@ public class AssignSubjectActualController implements Initializable {
     @FXML
     private TableColumn<ConWord, String> defTblCol;
 
-    public void searchLexiConWords(ActionEvent searchBtnP) throws SQLException {
+    public void searchLexiConWords() {
         //TODO search LexiConWords
         ConWord.populateLexiConWords(searchTxtF.getText());
     }
 
-    public void assignLexiConWord(ActionEvent assignBtnP) throws SQLException, IOException {
+    public void assignLexiConWord(ActionEvent assignBtnP) throws IOException {
         //TODO Assign LexiConWord to PPT Subject
         if (conWordTblVw.getSelectionModel().getSelectedItem() != null){
             selectedPPTSubject.setWordID(conWordTblVw.getSelectionModel().getSelectedItem().getId());
@@ -79,15 +79,11 @@ public class AssignSubjectActualController implements Initializable {
         selectedPPTSubject = AssignSubjectController.getSelectedPPTSubject();
         pptDescTxtF.setText(selectedPPTSubject.getDescription());
         pptArchTxtF.setText(selectedPPTSubject.getArcheType());
-        try {
             ConWord.populateLexiConWords("");
             conWordTblVw.setItems(ConWord.getLexiConWords());
             spellTblCol.setCellValueFactory(new PropertyValueFactory<>("spelling"));
             phoneTblCol.setCellValueFactory(new PropertyValueFactory<>("phonetic"));
             typeTblCol.setCellValueFactory(new PropertyValueFactory<>("wordType"));
             defTblCol.setCellValueFactory(new PropertyValueFactory<>("meaning"));
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
     }
 }
